@@ -1,3 +1,21 @@
 .mapa {
-  background: #369;
+  background: rgba(0,0,0,0);
+}
+
+.etiquetaPlaneta {
+  color: yellow;
+  background: none;
+  border: none;
+  box-shadow: none;
+} 
+
+.etiquetaPlaneta * {
+  border: none;
+}
+
+.leaflet-tooltip-top:before, 
+.leaflet-tooltip-bottom:before, 
+.leaflet-tooltip-left:before, 
+.leaflet-tooltip-right:before {
+    border: none !important;
 }

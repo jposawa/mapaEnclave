@@ -24,6 +24,7 @@ export const ControleProvider = ({children}) => {
   const [fbApp, setFbApp] = React.useState();
   const [mostraModal, setMostraModal] = React.useState(false);
   const [planetas, setPlanetas] = React.useState();
+  const [planetasGeoJson, setPlanetasGeoJson] = React.useState();
 
   const pegaDadosLS = (tabela) => {}
 
@@ -35,11 +36,40 @@ export const ControleProvider = ({children}) => {
     return refResposta;
   }
 
+  const formataPlanetas = (objBruto) => {
+    const dadosPlanetas = {
+      type: "FeatureCollection",
+    }
+    let contador = 0;
+
+    dadosPlanetas.features = objBruto.map((p) => ({
+      id: contador++,
+      type: "Feature",
+      properties: p,
+      geometry: {
+        type: "Point",
+        coordinates: [p.X, p.Y],
+      },
+    }));
+
+    setPlanetasGeoJson(dadosPlanetas);
+  }
+
+  const ajustaPlanetas = (objBruto) => {
+    const offset = 15 * 15;
+    const planetasAjustados = objBruto.map((p) => ({...p, X: p.X/offset, Y: p.Y/offset}));
+
+    setPlanetas(planetasAjustados);
+    formataPlanetas(planetasAjustados);
+  }
+
   const pegarPlanetas = () => {
     const refMapa = pegarDados();
 
     onValue(refMapa, (recorte) => {
-      setPlanetas(recorte.val());
+      // setPlanetas(recorte.val());
+      ajustaPlanetas(recorte.val());
+      // formataPlanetas(recorte.val());
     })
   }
 
@@ -52,6 +82,7 @@ export const ControleProvider = ({children}) => {
     mostraModal,
     setMostraModal,
     planetas,
+    planetasGeoJson,
     CONFIG,
   };
 

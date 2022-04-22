@@ -13,10 +13,6 @@ export default function Inicio() {
     <>
       <div className={styles.inicio}>
         <h1>Saudações enclavistas</h1>
-  
-        <div className={styles.containerHolocron}>
-          <Holocron animado tamanho="20vmin"/>
-        </div>
 
         <section className={styles.slotMapa}>
           <Mapa />
