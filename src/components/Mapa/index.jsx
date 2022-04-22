@@ -1,6 +1,13 @@
 /*
   Coordenadas de https://docs.google.com/spreadsheets/d/19zafALbE-mchYDKZgkJR-kmxrt2_KY57FS7tzkQSMEE/htmlview
   São 15x os valores das coordenadas de http://www.swgalaxymap.com/
+
+  No SWGalaxyMap cada lado do grid tem 1500 parsecs (pc) e cada lado mede 100 unidades do plano cartesiano dele.
+
+  Em meu mapa to pegando as coordenadas e dividindo por 16 o que coloca cada lado do "grid" como 6,25 pontos
+
+  Portanto cada lado passa a medir 6,25 pontos e 1 ponto passa a ser 240pc
+
 */
 
 
@@ -14,6 +21,7 @@ import styles from "./styles.module.css";
 export default function Mapa(props) {
   const {className, tamanho, cor} = props;
   const {planetas, planetasGeoJson} = useControle();
+  const [marcadorTeste, setMarcadorTeste] = React.useState();
   const mapRef = React.useRef();
 
   React.useMemo(() => {
@@ -28,14 +36,17 @@ export default function Mapa(props) {
           pointToLayer: (p, latlng) => {
             const marcador = L.circleMarker(latlng, {
               radius: 4,
-              tooltip: p.properties.Name,
-              className: styles.etiquetaPlaneta,
+              tooltip: p.properties.Name
             });
-            marcador.bindPopup(p.properties.Name);
-            marcador.bindTooltip(p.properties.Name, {
-              permanent: false,
-              direction: "bottom",
-            })
+            marcador.bindPopup(p.properties.Name ? p.properties.Name : "Sistema desconhecido");
+
+            if(p.properties.Name) {
+              marcador.bindTooltip(p.properties.Name, {
+                permanent: false,
+                direction: "bottom",
+                className: styles.etiquetaPlaneta,
+              })
+            }
             
             return marcador;
           }

@@ -1,3 +1,15 @@
+/*
+  Coordenadas de https://docs.google.com/spreadsheets/d/19zafALbE-mchYDKZgkJR-kmxrt2_KY57FS7tzkQSMEE/htmlview
+  São 15x os valores das coordenadas de http://www.swgalaxymap.com/
+
+  No SWGalaxyMap cada lado do grid tem 1500 parsecs (pc) e cada lado mede 100 unidades do plano cartesiano dele.
+
+  Em meu mapa to pegando as coordenadas e dividindo por 16 o que coloca cada lado do "grid" como 6,25 pontos
+
+  Portanto cada lado passa a medir 6,25 pontos e 1 ponto passa a ser 240pc
+
+*/
+
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { initializeApp } from "firebase/app";
@@ -56,7 +68,7 @@ export const ControleProvider = ({children}) => {
   }
 
   const ajustaPlanetas = (objBruto) => {
-    const offset = 15 * 15;
+    const offset = 15 * 12.5;
     const planetasAjustados = objBruto.map((p) => ({...p, X: p.X/offset, Y: p.Y/offset}));
 
     setPlanetas(planetasAjustados);

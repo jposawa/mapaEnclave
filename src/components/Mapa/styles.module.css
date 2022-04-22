@@ -1,5 +1,6 @@
 .mapa {
   background: rgba(0,0,0,0);
+  outline: none !important;
 }
 
 .etiquetaPlaneta {
@@ -9,13 +10,6 @@
   box-shadow: none;
 } 
 
-.etiquetaPlaneta * {
-  border: none;
-}
-
-.leaflet-tooltip-top:before, 
-.leaflet-tooltip-bottom:before, 
-.leaflet-tooltip-left:before, 
-.leaflet-tooltip-right:before {
-    border: none !important;
+.etiquetaPlaneta:before {
+  border: none !important;
 }
