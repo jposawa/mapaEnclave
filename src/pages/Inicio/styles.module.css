@@ -50,3 +50,16 @@
 .slotBotao {
   text-align: center;
 }
+
+.slotMapa {
+  position: relative;
+  border: 2px solid red;
+  width: 100%;
+  height: 80%;
+  display: flex;
+}
+
+.slotMapa>div {
+  width: 100%;
+  height: 100%;
+}

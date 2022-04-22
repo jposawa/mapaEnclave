@@ -2,7 +2,7 @@ import React from "react";
 import { useControle } from "../../hooks/controle.jsx";
 
 import Holocron from "../../components/Holocron";
-import { Carta, Campo, Botao, Modal } from "../../components";
+import { Carta, Campo, Botao, Modal, Mapa } from "../../components";
 
 import styles from "./styles.module.css";
 
@@ -17,6 +17,10 @@ export default function Inicio() {
         <div className={styles.containerHolocron}>
           <Holocron animado tamanho="20vmin"/>
         </div>
+
+        <section className={styles.slotMapa}>
+          <Mapa />
+        </section>
         
       </div>
 

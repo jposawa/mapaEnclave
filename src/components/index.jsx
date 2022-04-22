@@ -8,6 +8,7 @@ import Triangulo from "./Triangulo";
 import Modal from "./Modal";
 import Ajuda from "./Ajuda";
 import Carregando from "./Carregando";
+import Mapa from "./Mapa";
 
 export {
   Botao,
@@ -20,4 +21,5 @@ export {
   Modal,
   Ajuda,
   Carregando,
+  Mapa,
 }
