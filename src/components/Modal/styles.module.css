@@ -1,0 +1,75 @@
+.modal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transition: all 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal select {
+  --corUsada: var(--corSecundaria);
+  
+  background: var(--corUsada);
+  border: 2px solid var(--corUsada);
+  outline: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.fundoModal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.5;
+}
+
+.corpoModal {
+  position: relative;
+  width: min(80%, 40rem);
+  height: 32%;
+  background: rgba(30, 60, 90, 0.9);
+  color: #eee;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.3s;
+}
+
+
+.corpoTransparente .corpoModal {
+  background: rgba(0,0,0,0);
+  width: 100%;
+  height: 60%;
+}
+
+.fechaModal {
+  --tamanho: 2rem;
+  
+  position: absolute;
+  width: var(--tamanho);
+  height: var(--tamanho);
+  font-size: calc(var(--tamanho) * 0.7);
+  top: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 0 0.2rem;
+  background: none;
+  color: var(--corComplementar);
+  border: none;
+  transition: color 0.3s, background 0.3s;
+}
+
+.fechaModal:hover {
+  background: var(--corComplementar);
+  color: #fff;
+}

@@ -1,0 +1,107 @@
+.holocron, .holocron * {
+  transition: all 0.3s, width 1s, height 1s;
+}
+
+.holocron {
+  --tamanhoFace: var(--tamanhoLado, 10rem);
+  --corFace: radial-gradient(rgba(119, 170, 221, 0.5), rgba(51, 102, 153, 0.85) 90%);
+  --corBorda: var(--corBordaHolocron, #b7b734);
+
+  position: relative;
+  font-size: var(--tamanhoFace);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-style: preserve-3d;
+  animation-duration: 5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.luzInterior {
+  --tamanhoLuz: calc(var(--tamanhoFace) * 0.01);
+
+  width: var(--tamanhoLuz);
+  height: var(--tamanhoLuz);
+  background: rgba(255,255,255,0.1);
+  border: 2px solid white;
+  border-radius: 50% !important;
+  box-shadow: none;
+  animation-duration: 5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: reverse !important;
+  font-size: var(--tamanhoLuz);
+  box-shadow:
+      0 0 5em rgba(255,255,255,1),  /* inner white */
+      0 0 10em 10em rgba(119, 170, 221, 1), /* middle color */
+      0 0 10em 10em rgba(119, 170, 221, 1); /* outer color */
+}
+
+.animacaoPadrao, .animacaoPadrao .luzInterior {
+  animation-name: giroHorizontalInclinado;
+}
+
+.animacaoIntrodutoria, .animacaoIntrodutoria .luzInterior{
+  --atrasoPrimeiraAnimacao: 1s;
+  --tempoPrimeiraAnimacao: 1s;
+  --tempoEntreAnimacoes: calc(var(--atrasoPrimeiraAnimacao) + var(--tempoPrimeiraAnimacao));
+  animation-name: introducaoHolocron, giroHorizontalInclinado;
+  animation-duration: var(--tempoPrimeiraAnimacao), 5s;
+  animation-timing-function: ease-in, linear;
+  animation-delay: var(--atrasoPrimeiraAnimacao), var(--tempoEntreAnimacoes);
+  animation-iteraction-count: 1, infinite;
+}
+
+.frente {
+  transform: rotateY(0deg) translateZ(calc(var(--tamanhoFace) * 0.5));
+}
+
+.tras {
+  transform: rotateY(180deg) translateZ(calc(var(--tamanhoFace) * 0.5));
+}
+
+.direita {
+  transform: rotateY(90deg) translateZ(calc(var(--tamanhoFace) * 0.5));
+}
+
+.esquerda {
+  transform: rotateY(-90deg) translateZ(calc(var(--tamanhoFace) * 0.5));
+}
+
+.cima {
+  transform: rotateX(90deg) translateZ(calc(var(--tamanhoFace) * 0.5));
+}
+
+.baixo {
+  transform: rotateX(-90deg) translateZ(calc(var(--tamanhoFace) * 0.5));
+}
+
+@keyframes giroHorizontalInclinado {
+  0% {
+    transform: rotateY(0deg) rotateX(15deg);
+  }
+  100% {
+    transform: rotateY(360deg) rotateX(15deg);
+  }
+}
+
+@keyframes introducaoHolocron {
+  0% {
+    transform: rotateX(0deg);
+  }
+
+  100% {
+    transform: rotateX(15deg);
+  }
+}
+
+@keyframes giroHorizontal {
+  0% {
+    transform: rotateY(0deg);
+  }
+
+  100%{
+    transform: rotateY(360deg);
+  }
+}

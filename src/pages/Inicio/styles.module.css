@@ -1,0 +1,52 @@
+.inicio {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.containerHolocron {
+  position: relative;
+  width: 100%;
+  height: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.corpoTexto {
+  position: relative;
+  width: 100%;
+  height: 50%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.containerOpcoes {
+  width: 100%;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.containerOpcoes>button {
+  margin-bottom: 1rem;
+}
+
+.formModal {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5%;
+}
+
+.slotBotao {
+  text-align: center;
+}

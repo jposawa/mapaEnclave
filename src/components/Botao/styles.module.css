@@ -1,0 +1,60 @@
+.botao {
+  --largura: var(--larguraBotao, 5rem);
+  --altura: calc(var(--largura) * 0.45);
+  --corBotao: var(--corPrimariaMaisEscura);
+  --corBotao2: var(--corSecundariaMaisClara);
+  --gradiente: linear-gradient(90deg, var(--cor1) 10% , var(--cor2) 30%, var(--cor1) 60%);
+  --tempoTransicao: 0.3s;
+
+  position: relative;
+  width: var(--largura);
+  height: var(--altura);
+  padding: 0.2rem;
+  font-size: 1rem;
+  background: var(--corBotao);
+  color: #eee;
+  clip-path: polygon(25% 0, 0 35%, 0 100%, 75% 100%, 100% 65%, 100% 0);
+  border: 2px solid var(--corBotao);
+  transition: background var(--tempoTransicao), box-shadow var(--tempoTransicao), width var(--tempoTransicao), opacity var(--tempoTransicao), visibility var(--tempoTransicao);
+}
+
+.botao:disabled {
+  --corBotao: var(--corTerciaria);
+  --corBotao2: var(--corTerciaria);
+  
+  opacity: 0.8;
+  cursor: default;
+}
+
+.botao:hover {
+/*   box-shadow: 0 0 20rem rgba(255,255,255,0.1) inset; */
+  color: #fff;
+  border-color: var(--corBotao2);
+  width: calc(var(--largura) * 1.05);
+}
+
+.modoSecundario {
+  --corBotao: var(--corSecundariaEscura);
+  --corBotao2: var(--corComplementar);
+}
+
+.modoTerciario {
+  --corBotao: var(--corTerciaria);
+  --corBotao2: var(--corPrimariaEscura);
+}
+
+.modoComplementar {
+  --corBotao: var(--corComplementarEscura);
+  --corBotao2: var(--corPrimariaMaisClara);
+}
+
+.modoConfirma {
+  --corBotao: var(--corConfirma);
+  --corBotao2: var(--corPrimariaEscura);
+}
+
+.botao>label{
+  position: absolute;
+  font-size: 0.5em;
+  top: 100%;
+}

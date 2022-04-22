@@ -1,0 +1,6 @@
+.triangulo {
+  width: var(--tamanho, 3rem);
+  height: var(--tamanho, 3rem);
+  background: var(--cor, #f00);
+  clip-path: polygon(0% 100%, 50% 30%, 100% 100%);
+}

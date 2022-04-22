@@ -1,0 +1,87 @@
+.perguntas {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.perguntas>header {
+  text-align: center;
+}
+
+.corpoPergunta {
+  --alturaEnunciados: 35%;
+  
+  width: 100%;
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.enunciado {
+  width: 100%;
+  height: calc(100% - var(--alturaEnunciados));
+  padding: 2% 5%;
+}
+
+.slotAlternativas {
+  width: 100%;
+  height: var(--alturaEnunciados);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  gap: 4%;
+}
+
+.alternativa {
+  flex: 0 0 47%;
+
+/*   --largura: 12rem; */
+  --altura: 3.5rem;
+  clip-path: polygon(15% 0, 0 25%, 0 100%, 85% 100%, 100% 75%, 100% 0);
+}
+
+.alternativaCorreta, .alternativaErrada {
+  border-color: rgba(0,0,0,0);
+}
+
+.alternativaCorreta {
+  background: var(--corConfirma);
+}
+
+.alternativaErrada {
+  background: var(--corComplementar);
+}
+
+.descartada {
+  opacity: 0.3 !important;
+  --corBotao: var(--corComplementar) !important;
+  --corBotao2: var(--corBotao) !important;
+}
+
+.slotBotoes {
+  height: 12%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.slotBotoes>button {
+  --altura: 2rem;
+}
+
+/* .btnConfirma {
+  --corBotao: var(--corTerciaria);
+} */
+
+.slotBotoesModal {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
