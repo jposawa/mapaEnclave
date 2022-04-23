@@ -69,7 +69,7 @@ export const ControleProvider = ({children}) => {
   }
 
   const ajustaPlanetas = (objBruto) => {
-    const offset = 15 * 16;
+    const offset = 15 * 14;
     const planetasAjustados = objBruto.map((p) => ({...p, X: p.X/offset, Y: p.Y/offset}));
 
     setPlanetas(planetasAjustados);

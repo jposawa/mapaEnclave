@@ -44,7 +44,7 @@ const EventosMapa = (props) => {
     "Ilum",
   ];
 
-  const colocaTexto = (texto, coord) => {
+  const colocaTexto = (texto, coord, marcPlaneta) => {
     const lista = listaNomesPlanetas;
     /* const nomeExistente = lista.filter((np) => {
       console.table({
@@ -57,13 +57,13 @@ const EventosMapa = (props) => {
       const icone = L.divIcon({
         className: styles.nomePlaneta,
         html: texto,
-        iconAnchor: [0, 5],
+        iconAnchor: [3.1*texto.length, -5],
       });
   
       const mTexto = L.marker(coord, {
         icon: icone,
         name: texto,
-      });
+      }).on("click", () => {marcPlaneta.openPopup()});
 
       lista[texto] = mTexto;
       mTexto.addTo(mapa);
@@ -77,14 +77,14 @@ const EventosMapa = (props) => {
     planetas.forEach((p) => {
       // console.log(p);
       const nomePlaneta = p.options.name;
-      if(bordasMapa.contains(p.getLatLng()) && (mapa.getZoom() > 6 || referencias.includes(nomePlaneta))) {
+      if(bordasMapa.contains(p.getLatLng()) && (mapa.getZoom() > 5 || referencias.includes(nomePlaneta))) {
         if(nomePlaneta) {
           // p.bindTooltip(nomePlaneta, {
           //   permanent: true,
           //   direction: "bottom",
           //   className: styles.etiquetaPlaneta,
           // });
-          colocaTexto(nomePlaneta, p.getLatLng())
+          colocaTexto(nomePlaneta, p.getLatLng(), p)
         }
       }
       else if(!referencias.includes(p.options.name)){

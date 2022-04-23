@@ -13,3 +13,12 @@
 .etiquetaPlaneta:before {
   border: none !important;
 }
+
+.nomePlaneta {
+  width: auto !important;
+  color: yellow;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
