@@ -34,6 +34,7 @@ const EventosMapa = (props) => {
   const mapa = useMap();
   const {planetasGeoJson, camadaPlanetas, setCamadaPlanetas} = useControle();
   const [camadaPlanetasLocal, setCamadaPlanetasLocal] = React.useState();
+  const [listaNomesPlanetas, setListaNomesPlanetas] = React.useState({});
   const referencias = [
     "Coruscant",
     "Corellia",
@@ -42,6 +43,32 @@ const EventosMapa = (props) => {
     "Hosnian Prime",
     "Ilum",
   ];
+
+  const colocaTexto = (texto, coord) => {
+    const lista = listaNomesPlanetas;
+    /* const nomeExistente = lista.filter((np) => {
+      console.table({
+        nomeMarc: np.options.name,
+        nomeEnv: texto,
+      });
+      return (np.options.name === texto)
+    }); */
+    if(!lista[texto]){
+      const icone = L.divIcon({
+        className: styles.nomePlaneta,
+        html: texto,
+        iconAnchor: [0, 5],
+      });
+  
+      const mTexto = L.marker(coord, {
+        icon: icone,
+        name: texto,
+      });
+
+      lista[texto] = mTexto;
+      mTexto.addTo(mapa);
+    }
+  }
 
   const gerenciaTooltip = () => {
     const planetas = Object.values(camadaPlanetasLocal?._layers);
@@ -52,15 +79,22 @@ const EventosMapa = (props) => {
       const nomePlaneta = p.options.name;
       if(bordasMapa.contains(p.getLatLng()) && (mapa.getZoom() > 6 || referencias.includes(nomePlaneta))) {
         if(nomePlaneta) {
-          p.bindTooltip(nomePlaneta, {
-            permanent: true,
-            direction: "bottom",
-            className: styles.etiquetaPlaneta,
-          });
+          // p.bindTooltip(nomePlaneta, {
+          //   permanent: true,
+          //   direction: "bottom",
+          //   className: styles.etiquetaPlaneta,
+          // });
+          colocaTexto(nomePlaneta, p.getLatLng())
         }
       }
-      else if(!referencias.includes(p.options.tooltip)){
+      else if(!referencias.includes(p.options.name)){
         p.unbindTooltip();
+        const marcadorNomePlaneta = listaNomesPlanetas[p.options.name];
+
+        if(marcadorNomePlaneta){
+          mapa.removeLayer(marcadorNomePlaneta);
+          delete listaNomesPlanetas[p.options.name];
+        }
       }
     })
   }
