@@ -18,7 +18,7 @@ import { Carta, Campo, Botao, Modal, Mapa } from "../../components";
 
 import styles from "./styles.module.css";
 
-export default function Inicio() {
+export default function Astrogacao() {
   const {planetas} = useControle();
   const refOrigem = React.useRef();
   const refDestino = React.useRef();

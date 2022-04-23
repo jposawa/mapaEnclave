@@ -70,9 +70,9 @@
     font-size: 1.5rem !important;
   }
   
-  /* .menu>a:first-of-type {
+  .menu>a:first-of-type {
     order: 3 !important;
-  } */
+  }
 
   .menu p {
     position: absolute;

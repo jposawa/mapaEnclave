@@ -1,6 +1,6 @@
 import React from "react";
 import {useControle} from "../../hooks";
-import {HomeOutlined, AppstoreOutlined, ProjectOutlined} from "@ant-design/icons";
+import { GatewayOutlined, ForkOutlined} from "@ant-design/icons";
 import {Link, useLocation} from "react-router-dom";
 
 import styles from "./styles.module.css";
@@ -17,13 +17,13 @@ export default function Menu() {
     <nav className={styles.menu} onClick={() => {setMostraModal(false)}}>
       <span className={styles.fundo}/>
             
-      <Link to="/inicio" className={(isThisLocation("inicio") || isThisLocation("")) ? styles.selecionado : undefined}>
-        <HomeOutlined />
-        <p>Início</p>
+      <Link to="/astrogacao" className={(isThisLocation("astrogacao")) ? styles.selecionado : undefined}>
+        <ForkOutlined />
+        <p>Navegar</p>
       </Link>
 
-      <Link to="/mapa" className={isThisLocation("mapa") ? styles.selecionado : undefined}>
-        <AppstoreOutlined />
+      <Link to="/mapa" className={(isThisLocation("mapa") || isThisLocation("")) ? styles.selecionado : undefined}>
+        <GatewayOutlined />
         <p>Mapa</p>
       </Link>
     </nav>
