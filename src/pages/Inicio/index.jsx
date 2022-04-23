@@ -25,8 +25,8 @@ export default function Inicio() {
   const refPropulsor = React.useRef();
   const [distancia, setDistancia] = React.useState();
   const [tempo, setTempo] = React.useState();
-  const velocidadePadrao = 156.4641; //Isso seria quantos parsecs por hora em um hyperdrive class 1
-  const parsecPonto = 240;
+  const velocidadePadrao = 12.22375; //Isso seria quantos parsecs por hora em um hyperdrive class 1
+  const parsecPonto = 24;
 
   const calcularDestino = (evento) => {
     evento.preventDefault();
