@@ -21,6 +21,11 @@ export default function Menu() {
         <HomeOutlined />
         <p>Início</p>
       </Link>
+
+      <Link to="/mapa" className={isThisLocation("mapa") ? styles.selecionado : undefined}>
+        <AppstoreOutlined />
+        <p>Mapa</p>
+      </Link>
     </nav>
   )
 }

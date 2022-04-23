@@ -30,37 +30,81 @@ import {useControle} from "../../hooks";
 import styles from "./styles.module.css";
 
 const EventosMapa = (props) => {
-  const {camadaPlanetas} = props;
+  // const {camadaPlanetas} = props;
   const mapa = useMap();
+  const {planetasGeoJson, camadaPlanetas, setCamadaPlanetas} = useControle();
+  const [camadaPlanetasLocal, setCamadaPlanetasLocal] = React.useState();
   const referencias = [
     "Coruscant",
     "Corellia",
     "Tatooine",
     "Naboo",
+    "Hosnian Prime",
+    "Ilum",
   ];
 
   const gerenciaTooltip = () => {
-    const planetas = Object.values(camadaPlanetas._layers);
+    const planetas = Object.values(camadaPlanetasLocal?._layers);
     const bordasMapa = mapa.getBounds();
 
     planetas.forEach((p) => {
-      if(bordasMapa.contains(p.getLatLng()) && (mapa.getZoom() > 6 || referencias.includes(p.options.tooltip))) {
-        p.openTooltip();
+      // console.log(p);
+      const nomePlaneta = p.options.name;
+      if(bordasMapa.contains(p.getLatLng()) && (mapa.getZoom() > 6 || referencias.includes(nomePlaneta))) {
+        if(nomePlaneta) {
+          p.bindTooltip(nomePlaneta, {
+            permanent: true,
+            direction: "bottom",
+            className: styles.etiquetaPlaneta,
+          });
+        }
       }
       else if(!referencias.includes(p.options.tooltip)){
-        p.closeTooltip();
+        p.unbindTooltip();
       }
     })
   }
 
-  React.useMemo(() => {
+  React.useMemo(()=>{
+    if(planetasGeoJson) {
+        const _camadaPlanetas = L.geoJson(planetasGeoJson, {
+          pointToLayer: (p, latlng) => {
+            const marcador = L.circleMarker(latlng, {
+              radius: 5,
+              weight: 1,
+              color: "#eee",
+              fillOpacity: 1,
+              fillColor: "#369",
+              name: p.properties.Name,
+            });
+            marcador.bindPopup(p.properties.Name ? 
+              `<div><a href="${p.properties.Link}" target="blank">${p.properties.Name}</a><p>X:${p.properties.X.toFixed(2)}, Y:${p.properties.Y.toFixed(2)}</p></div>` : 
+              "Sistema desconhecido"
+            );
+            
+            return marcador;
+          }
+        });
+
+        setCamadaPlanetasLocal(_camadaPlanetas);
+        _camadaPlanetas.addTo(mapa);
+      }
+  },[mapa, planetasGeoJson]);
+
+  React.useEffect(() => {
+    if(camadaPlanetasLocal) {
+      gerenciaTooltip();
+      setCamadaPlanetas(camadaPlanetasLocal);
+    }
+  }, [camadaPlanetasLocal])
+
+  /* React.useMemo(() => {
     if(mapa && camadaPlanetas) {
       gerenciaTooltip();
     }
-  },[mapa, camadaPlanetas])
+  },[mapa, camadaPlanetas]) */
   
   useMapEvents({
-    ready: () => {console.log("carregou");},
     move: gerenciaTooltip,
   });
 
@@ -71,7 +115,7 @@ export default function Mapa(props) {
   const {className, tamanho, cor} = props;
   const {planetas, planetasGeoJson} = useControle();
   const [marcadorTeste, setMarcadorTeste] = React.useState();
-  const [camadaPlanetas, setCamadaPlanetas] = React.useState();
+  const [map, setMap] = React.useState();
   const mapRef = React.useRef();
 
   const teste = (e) => {
@@ -79,45 +123,9 @@ export default function Mapa(props) {
     console.log(mapa);
   }
 
-  React.useMemo(() => {
-    if(mapRef.current){
-      const mapa = mapRef.current;
-      
-      if(planetasGeoJson) {
-        
-        const camadaPlanetas = L.geoJson(planetasGeoJson, {
-          pointToLayer: (p, latlng) => {
-            const marcador = L.circleMarker(latlng, {
-              radius: 4,
-              tooltip: p.properties.Name
-            });
-            marcador.bindPopup(p.properties.Name ? p.properties.Name : "Sistema desconhecido");
-
-            if(p.properties.Name === "Coruscant"){
-              setMarcadorTeste(marcador);
-            }
-
-            if(p.properties.Name) {
-              marcador.bindTooltip(p.properties.Name, {
-                permanent: false,
-                direction: "bottom",
-                className: styles.etiquetaPlaneta,
-              })
-            }
-            
-            return marcador;
-          }
-        });
-
-        setCamadaPlanetas(camadaPlanetas);
-        camadaPlanetas.addTo(mapa);
-      }
-    }
-  },[planetasGeoJson, mapRef])
-
   return (
-    <MapContainer className={styles.mapa} center={[0,0]} zoom={7} ref={mapRef} onMove={teste}>
-      <EventosMapa camadaPlanetas={camadaPlanetas}/>
+    <MapContainer className={styles.mapa} center={[0,0]} zoom={7} ref={mapRef}>
+      <EventosMapa />
     </MapContainer>
   );
 }

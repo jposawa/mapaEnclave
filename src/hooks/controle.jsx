@@ -37,6 +37,7 @@ export const ControleProvider = ({children}) => {
   const [mostraModal, setMostraModal] = React.useState(false);
   const [planetas, setPlanetas] = React.useState();
   const [planetasGeoJson, setPlanetasGeoJson] = React.useState();
+  const [camadaPlanetas, setCamadaPlanetas] = React.useState();
 
   const pegaDadosLS = (tabela) => {}
 
@@ -68,7 +69,7 @@ export const ControleProvider = ({children}) => {
   }
 
   const ajustaPlanetas = (objBruto) => {
-    const offset = 15 * 12.5;
+    const offset = 15 * 16;
     const planetasAjustados = objBruto.map((p) => ({...p, X: p.X/offset, Y: p.Y/offset}));
 
     setPlanetas(planetasAjustados);
@@ -95,6 +96,8 @@ export const ControleProvider = ({children}) => {
     setMostraModal,
     planetas,
     planetasGeoJson,
+    camadaPlanetas,
+    setCamadaPlanetas,
     CONFIG,
   };
 

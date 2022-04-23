@@ -62,3 +62,20 @@
   width: 100%;
   height: 100%;
 }
+
+.slotCalculo {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.slotCalculo>form {
+  text-align: center;
+}
+
+.slotCalculo * {
+  outline: none;
+}

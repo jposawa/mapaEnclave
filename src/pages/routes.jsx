@@ -3,7 +3,7 @@ import {Routes as Switch, Route} from "react-router-dom";
 
 import Inicio from "./Inicio";
 import Jogo from "./Jogo";
-import Placar from "./Placar";
+import PaginaMapa from "./PaginaMapa";
 
 export default function Routes() {
   return(
@@ -11,6 +11,7 @@ export default function Routes() {
       <Switch>
         <Route exact path="/" element={<Inicio/>} />
         <Route path="/inicio" element={<Inicio/>} />
+        <Route path="/mapa" element={<PaginaMapa/>} />
       </Switch>
     </>
   );
