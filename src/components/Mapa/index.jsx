@@ -13,20 +13,73 @@
 
 import React from "react";
 import 'leaflet/dist/leaflet.css';
-import { MapContainer, TileLayer, useMap, Marker, Popup, GeoJSON, FeatureGroup, CircleMarker, Tooltip } from 'react-leaflet';
+import { 
+  MapContainer, 
+  TileLayer, 
+  useMap, 
+  Marker, 
+  Popup, 
+  GeoJSON, 
+  FeatureGroup, 
+  CircleMarker, 
+  Tooltip, 
+  useMapEvents,
+} from 'react-leaflet';
 import {useControle} from "../../hooks";
 
 import styles from "./styles.module.css";
+
+const EventosMapa = (props) => {
+  const {camadaPlanetas} = props;
+  const mapa = useMap();
+  const referencias = [
+    "Coruscant",
+    "Corellia",
+    "Tatooine",
+    "Naboo",
+  ];
+
+  const gerenciaTooltip = () => {
+    const planetas = Object.values(camadaPlanetas._layers);
+    const bordasMapa = mapa.getBounds();
+
+    planetas.forEach((p) => {
+      if(bordasMapa.contains(p.getLatLng()) && (mapa.getZoom() > 6 || referencias.includes(p.options.tooltip))) {
+        p.openTooltip();
+      }
+      else if(!referencias.includes(p.options.tooltip)){
+        p.closeTooltip();
+      }
+    })
+  }
+
+  React.useMemo(() => {
+    if(mapa && camadaPlanetas) {
+      gerenciaTooltip();
+    }
+  },[mapa, camadaPlanetas])
+  
+  useMapEvents({
+    ready: () => {console.log("carregou");},
+    move: gerenciaTooltip,
+  });
+
+  return null;
+}
 
 export default function Mapa(props) {
   const {className, tamanho, cor} = props;
   const {planetas, planetasGeoJson} = useControle();
   const [marcadorTeste, setMarcadorTeste] = React.useState();
+  const [camadaPlanetas, setCamadaPlanetas] = React.useState();
   const mapRef = React.useRef();
 
+  const teste = (e) => {
+    const mapa = e.target;
+    console.log(mapa);
+  }
+
   React.useMemo(() => {
-    // const { leafletElement: mapa } = mapRef?.current;
-    // console.log(mapa);
     if(mapRef.current){
       const mapa = mapRef.current;
       
@@ -40,6 +93,10 @@ export default function Mapa(props) {
             });
             marcador.bindPopup(p.properties.Name ? p.properties.Name : "Sistema desconhecido");
 
+            if(p.properties.Name === "Coruscant"){
+              setMarcadorTeste(marcador);
+            }
+
             if(p.properties.Name) {
               marcador.bindTooltip(p.properties.Name, {
                 permanent: false,
@@ -51,24 +108,16 @@ export default function Mapa(props) {
             return marcador;
           }
         });
-  
+
+        setCamadaPlanetas(camadaPlanetas);
         camadaPlanetas.addTo(mapa);
       }
     }
   },[planetasGeoJson, mapRef])
 
-  /* {planetas && 
-        <FeatureGroup>
-          {planetas.map((p) => (
-            <CircleMarker key={`${p.technicalId}|${p.RandDist}`} center={[p.Y, p.X]} radius={2}>
-              <Popup>{p.Name}</Popup>
-              <Tooltip permanent direction={"bottom"} className={styles.etiquetaPlaneta}>{p.Name}</Tooltip>
-            </CircleMarker>
-          ))}
-        </FeatureGroup>
-      } */
   return (
-    <MapContainer className={styles.mapa} center={[0,0]} zoom={7} ref={mapRef}>
+    <MapContainer className={styles.mapa} center={[0,0]} zoom={7} ref={mapRef} onMove={teste}>
+      <EventosMapa camadaPlanetas={camadaPlanetas}/>
     </MapContainer>
   );
 }
