@@ -74,6 +74,19 @@
 
 .slotCalculo>form {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.slotCalculo>form>p {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.slotCalculo>form>p:last-child {
+  align-items: center;
 }
 
 .slotCalculo * {
