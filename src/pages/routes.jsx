@@ -11,7 +11,7 @@ export default function Routes() {
       <Switch>
         <Route exact path="/" element={<PaginaMapa/>} />
         <Route path="/mapa" element={<PaginaMapa/>} />
-        <Route path="/astrogracao" element={<Astrogacao/>} />
+        <Route path="/astrogacao" element={<Astrogacao/>} />
       </Switch>
     </>
   );

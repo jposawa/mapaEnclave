@@ -54,19 +54,23 @@ export default function Astrogacao() {
       </datalist>
       
       <div className={styles.inicio}>
-        <h1>Saudações enclavistas</h1>
+        <h1>Painel de Astrogação</h1>
+        <p>Preencha formulário abaixo para estimativa de distância e tempo de viagem.</p>
 
         <div className={styles.slotCalculo}>
           <form className={styles.formCalculo} onSubmit={calcularDestino}>
             <p>
+              Origem
               <input type="text" placeholder="Origem" list="listaPlanetas" ref={refOrigem}/>
             </p>
-  
+            
             <p>
+              Destino
               <input type="text" placeholder="Destino" list="listaPlanetas" ref={refDestino}/>
             </p>
-
+            
             <p>
+              Classe hiperpropulsor
               <input type="tel" placeholder="Classe propulsor" ref={refPropulsor} defaultValue="1"/>
             </p>
   
