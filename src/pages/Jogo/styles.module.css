@@ -1,0 +1,82 @@
+.jogo {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.jogo>header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0.5rem;
+}
+
+.jogo>header>div:last-child {
+  max-width: 50%;
+  text-align: right;
+}
+
+.jogadorAtivo {
+  text-decoration: underline;
+}
+
+.slotAjudas {
+  width: 100%;
+}
+
+.slotAjudas button {
+  --largura: 4.5rem;
+  --altura: 2.5rem;
+
+  margin: 0.3rem 0.3rem 0;
+  font-size: 1.2rem;
+  opacity: 0.65;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.slotAjudas button:hover {
+  width: var(--largura);
+}
+
+.slotAjudas button:hover:enabled {
+  opacity: 1;
+}
+
+.slotAjudas button:disabled {
+  opacity: 0.45;
+}
+
+.labelAjuda {
+  font-size: 0.5em;
+  padding-bottom: 0.25rem;
+}
+
+.qtdAjuda {
+  position: absolute;
+  top: -0.1rem;
+  right: 0.1rem;
+  font-size: 0.7em;
+}
+
+.slotEtapa {
+  height: 100%;
+}
+
+@media screen and (min-width:1100px) {
+  .slotAjudas {
+    display: flex;
+    align-items: center !important;
+    gap: 0.5rem;
+    padding: 5% 2% 0 0;
+  }
+
+  .slotAjudas>button {
+    margin: 0;
+  }
+}

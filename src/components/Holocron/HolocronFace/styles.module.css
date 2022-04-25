@@ -1,0 +1,50 @@
+.face, .face span {
+  --borderWidth: calc(var(--tamanhoFace, 1em) * 0.02);
+  --borderWidthThicker: calc(var(--borderWidth) * 2);
+  
+  border: var(--borderWidth, 2px) solid var(--corBorda, black);
+}
+
+.face {
+
+  position: absolute;
+  width: var(--tamanhoFace);
+  height: var(--tamanhoFace);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-width: var(--borderWidthThicker);
+  background: var(--corFace);
+  padding: 0;
+}
+
+.face span {
+  --tamanhoParte: 100%;
+
+  width: var(--tamanhoParte) !important;
+  height: var(--tamanhoParte) !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  overflow: hidden;
+}
+
+.circuloMaior, .circuloMenor {
+  border-radius: 100%;
+}
+
+.quadrado45Maior, .quadrado45Menor {
+  --tamanhoParte: 80% !important;
+}
+
+.quadrado45Maior {
+  /* --tamanhoParte: 0.72em !important; */
+  transform: rotate(45deg);
+  border-width: var(--borderWidthThicker) !important;
+}
+
+.quadrado45Menor, .circuloMenor {
+  /* --tamanhoParte: 0.5em !important; */
+}

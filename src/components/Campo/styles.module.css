@@ -1,0 +1,43 @@
+.campo {
+  --largura: var(--larguraBotao, 10rem);
+  --corBotao: var(--corPrimariaMaisEscura);
+  --corBotao2: var(--corSecundariaMaisClara);
+  --gradiente: linear-gradient(90deg, var(--cor1) 10% , var(--cor2) 30%, var(--cor1) 60%);
+
+  width: var(--largura);
+  padding: 0.2rem;
+  font-size: 1rem;
+  background: none;
+  color: #eee;
+  border: 2px solid var(--corBotao);
+  transition: background 0.3s, border 0.3s, background 0.3s, box-shadow 0.3s;
+  outline: none;
+}
+
+.valorCampo {
+  --corTexto: var(--corSecundariaMaisClara);
+  
+  color: var(--corTexto);
+}
+
+.campo:hover {
+  color: #fff;
+  border-color: var(--corBotao2);
+}
+
+.campo:focus {
+  box-shadow: 0 0 6rem var(--corBotao) inset;
+/*   background: var(--corBotao); */
+  color: #fff;
+  border-color: var(--corBotao2);
+}
+
+.modoSecundario {
+  --corBotao: var(--corSecundariaEscura);
+  --corBotao2: var(--corComplementar);
+}
+
+.modoComplementar {
+  --corBotao: var(--corComplementarEscura);
+  --corBotao2: var(--corPrimariaMaisClara);
+}

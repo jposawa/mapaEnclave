@@ -1,0 +1,65 @@
+.paginaMapa {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.placar h1 {
+  font-size: 2em;
+}
+
+.placar h2 {
+  font-size: 1.5em;
+}
+
+.placar h3 {
+  font-size: 1.2em;
+}
+
+.corpoPlacar {
+  margin-top: 10%;
+}
+
+.corpoPlacar>h3 {
+  text-align: center;
+  margin-bottom: 5%;
+}
+
+.vencendo>span {
+  color: var(--corSecundariaClara);
+}
+
+.slotMapa {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.slotMapa>div {
+  width: 100%;
+  height: 100%;
+}
+
+.slotAstrogador {
+  position: relative;
+  border: 2px solid red;
+  z-index: 1000;
+}
+
+.chamaAstrogador {
+  --tamanho: 2rem;
+  position: absolute;
+  width: var(--tamanho);
+  height: var(--tamanho);
+  bottom: 100%;
+  left: calc((100% - var(--tamanho))/2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+}

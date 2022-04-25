@@ -1,0 +1,193 @@
+.containerCarta {
+  --raioBorda: 5px;
+  --corFundoCarta: linear-gradient(to right, #888,#aaa,#888);
+  --dimensaoBase: var(--altura, 8rem);
+  --tamanhoTexto: calc(var(--dimensaoBase) * 0.1);
+  
+  position: relative;
+  width: calc(var(--dimensaoBase) * 0.7);
+  height: var(--dimensaoBase);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  border-radius: var(--raioBorda);
+  transform: rotateY(var(--grauVirada));
+}
+
+.conteudo {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerCarta:hover {
+  --grauVirada: var(--grauViraOver, 0deg);
+}
+
+.viravel {
+  transition: transform 1s;
+}
+
+.virada {
+  --grauVirada: 180deg;
+}
+
+.desvirada {
+  --grauVirada: 0deg !important;
+}
+
+.carta {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--corFundoCarta);
+  border-radius: var(--raioBorda);
+  padding: 0 calc(var(--dimensaoBase) / 15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: var(--tamanhoTexto, 1rem);
+  color: #eee;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transition: all 0.3s;
+  perspective: 500px;
+  backface-visibility: hidden;
+}
+
+.blocoPrincipal, .blocoInferior {
+  position: relative;
+  width: 100%;
+  height: 70%;
+  border-radius: var(--raioBorda);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+}
+
+.fundoPrimario, .fundoSecundario {
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  top: 0;
+  background: var(--corFundo);
+}
+
+.fundoPrimario {
+  --corFundo: var(--fundoPrimario, #192);
+  border-top-right-radius: var(--raioBorda);
+  border-top-left-radius: var(--raioBorda);
+}
+
+.fundoSecundario {
+  --corFundo: var(--fundoSecundario, var(--fundoPrimario, #192));
+
+  top: auto;
+  bottom: 0;
+  border-bottom-right-radius: var(--raioBorda);
+  border-bottom-left-radius: var(--raioBorda);
+}
+
+.sinalCarta {
+  --tamanho: calc(var(--dimensaoBase) * 0.17);
+  --posicao: calc(100% - (var(--tamanho) * 0.7));
+  
+  position: absolute;
+  width: var(--tamanho);
+  height: var(--tamanho);
+  bottom: var(--posicao);
+  left: var(--posicao);
+  padding-bottom: 0.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--fundoPrimario, #192);
+  border-radius: 50%;
+  font-size: 1em;
+  font-weight: bold;
+  z-index: 5;
+}
+
+.containerPrincipal {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #eee;
+}
+
+.faixaValor {
+  --sombra: 0 0 0.2rem rgba(0,0,0,0.5);
+  position: relative;
+  width: 100%;
+  height: 40%;
+  padding: 0.1rem;
+  display: flex;
+  justify-content: center;
+  background: var(--corFundoCarta);
+  box-shadow: var(--sombra);
+}
+
+.faixaValor>span {
+  --tamanho: 1em;
+  --cor: var(--corFundoCarta);
+  
+  position: absolute;
+  bottom: 100%;
+  box-shadow: var(--sombra);
+}
+
+.faixaValor>span:last-child {
+  top: 100%;
+  transform: rotate(180deg);
+}
+
+.valorCentral {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.blocoPrincipal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.blocoInferior {
+  width: 100%;
+  height: 30%;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.blocoInferior :is(.fundoPrimario, .fundoSecundario) {
+  width: 50%;
+  height: 100%;
+  border-radius: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--tamanhoTexto);
+  font-weight: bold;
+}
+
+.blocoInferior>.fundoSecundario {
+  left: 0;
+  border-top-left-radius: var(--raioBorda);
+}
+
+.blocoInferior>.fundoPrimario {
+  right: 0;
+  border-top-right-radius: var(--raioBorda);
+}

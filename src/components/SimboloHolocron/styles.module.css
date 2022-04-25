@@ -1,0 +1,105 @@
+.desenhoCentral {
+  --tamanhoDesenhoCentral: calc(var(--dimensaoBase, 0.8rem) * 0.5);
+
+  position: relative;
+  width: var(--tamanhoDesenhoCentral);
+  height: var(--tamanhoDesenhoCentral);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(45deg);
+}
+
+.desenhoCentral, .desenhoCentral * {
+  border-color: var(--corBorda, var(--corBordaHolocron));
+}
+
+.quadradoExternoInclinado {
+  position: absolute;
+  width: var(--tamanhoDesenhoCentral);
+  height: var(--tamanhoDesenhoCentral);
+  transform: rotate(45deg);
+}
+
+.quadradoInterno {
+  --tamanhoQuadradoInterno: calc(var(--tamanhoDesenhoCentral) * 0.65);
+
+  width: var(--tamanhoQuadradoInterno);
+  height: var(--tamanhoQuadradoInterno);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circulo {
+  --tamanhoCirculo: calc(var(--tamanhoQuadradoInterno) * 0.95);
+
+  width: var(--tamanhoCirculo);
+  height: var(--tamanhoCirculo);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.animacaoTotal, .animacaoTotal *, .animacaoExterna, .animacaoExterna *, .animacaoInterna * {
+  --duracaoAnimacao: var(--duracao, 2s);
+  animation-duration: var(--duracaoAnimacao);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.animacaoInterna .quadradoInterno {
+  animation-name: girar;
+  animation-direction: reverse;
+}
+
+.animacaoInterna .circulo {
+  animation-name: girar;
+}
+
+.animacaoExterna {
+  animation-name: girar;
+  animation-direction: reverse;
+}
+
+.animacaoExterna .quadradoExternoInclinado {
+  animation-name: girar;
+  animation-duration: calc(var(--duracaoAnimacao) * 0.5);
+}
+
+.animacaoExterna .quadradoInterno {
+  animation-name: girar;
+}
+
+.animacaoTotal {
+  animation-name: girar;
+  animation-direction: reverse;
+}
+
+.animacaoTotal .quadradoExternoInclinado {
+  animation-name: girar;
+  animation-duration: calc(var(--duracaoAnimacao) * 0.5);
+}
+
+.animacaoTotal .quadradoInterno {
+  --duracaoAnimacaoInterna: calc(var(--duracaoAnimacao) * 6);
+
+  animation-name: girar;
+  animation-duration: var(--duracaoAnimacaoInterna);
+  animation-direction: reverse;
+}
+
+.animacaoTotal .circulo {
+  animation-name: girar;
+  animation-duration: calc(var(--duracaoAnimacaoInterna) * 0.15);
+}
+
+@keyframes girar {
+  from {
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg);
+  }
+}

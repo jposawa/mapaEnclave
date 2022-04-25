@@ -1,0 +1,80 @@
+.ajudaChat {
+  height: 75%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ajudaChat>div {
+  position: relative;
+  height: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ajudaCartas {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.slotCartas {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4%;
+}
+
+.slotCartas>div {
+  transition: margin 0.5s, width 0.3s, height 0.3s, opacity 0.3s, transform 0.5s;
+}
+
+.cartaFechada, .cartaFechada * {
+  width: 0 !important;
+}
+
+.slotRecuperaAjuda {
+  width: 80%;
+  height: 30%;
+  padding: 5%;
+  margin-top: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(20, 60, 100, 0.8);
+  transition: visibility 0.3s, opacity 0.3s;
+}
+
+.slotRecuperaAjuda>div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slotRecuperaAjuda button {
+  --largura: 6rem;
+  --altura: 2.5rem;
+
+  margin: 0.3rem 0.3rem 0;
+  font-size: 1.3rem;
+  opacity: 0.65;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.slotRecuperaAjuda button:hover {
+  width: var(--largura);
+  opacity: 1;
+}
+
+.slotRecuperaAjuda button>span:last-child {
+  font-size: 0.8rem;
+}
