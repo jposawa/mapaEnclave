@@ -21,7 +21,16 @@ export default function Menu() {
 
   /* const isThisLocation = (nomePagina) => {
     return location.pathname === `/${nomePagina}`;
-  } */
+  }
+<button 
+        className={mostraAstrogacao ? styles.selecionado : undefined} 
+        type="button" 
+        onClick={()=>{setMostraAstrogacao(!mostraAstrogacao)}}
+      >
+        <ShareAltOutlined />
+        <label>Navegar</label>
+      </button>
+*/
 
   const chamaBuscaPlaneta = (event) => {
     event.preventDefault();
@@ -34,14 +43,10 @@ export default function Menu() {
     <nav className={styles.menu} onClick={() => {setMostraModal(false)}}>
       <span className={styles.fundo}/>
 
-      <button 
-        className={mostraAstrogacao ? styles.selecionado : undefined} 
-        type="button" 
-        onClick={()=>{setMostraAstrogacao(!mostraAstrogacao)}}
-      >
-        <ShareAltOutlined />
+      <Link to="/astrogacao" className={isThisLocation("astrogacao") ? styles.selecionado : undefined}>
+        <SharedAltOutlined />
         <label>Navegar</label>
-      </button>
+      </Link>
 
       <button 
         className={mostraBusca ? styles.selecionado : undefined} 
