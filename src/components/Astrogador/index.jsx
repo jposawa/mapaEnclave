@@ -4,7 +4,7 @@ import {useControle} from "../../hooks";
 import styles from "./styles.module.css";
 
 export default function Astrogador(props) {
-  const {setMostraModal} = useControle();
+  const {setMostraModal, planetas} = useControle();
 
   
   return (
