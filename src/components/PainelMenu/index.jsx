@@ -7,19 +7,15 @@ import { Carta, Campo, Botao, Modal, Mapa } from "../../components";
 
 import styles from "./styles.module.css";
 
-export default function PaginaMapa() {
+export default function PainelMenu(props) {
+  const {mostra, defineMostra, children} = props;
   const [tamanhoHolocron, setTamanhoHolocron] = React.useState(0);
-  const [mostraAstrogador, fechaPaineis] = React.useState(true);
+  const [mostraAstrogador, setMostraAstrogador] = React.useState(true);
 
   return (
-    <>
-      <div className={styles.paginaMapa} onClick={fechaPaineis}>
-
-        <section className={styles.slotMapa}>
-          <Mapa />
-        </section>
-        
-      </div>
-    </>
+    <div className={`${styles.slotPainel} ${mostra ? "" : styles.painelFechado}`}>
+      <span className={styles.fundoPainel} />
+      {children}
+    </div>
   )
 }

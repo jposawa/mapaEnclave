@@ -1,0 +1,58 @@
+.slotPainel {
+  --tamanhoDin: 20vh;
+  
+  position: absolute;
+  width: 100%;
+  height: var(--tamanhoDin);
+  bottom: 100%;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  transition: all 0.3s;
+}
+
+.slotPainel>form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.slotPainel * {
+  z-index: 5;
+}
+
+.fundoPainel {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: var(--corPrimariaMaisEscura);
+  opacity: 0.8;
+  z-index: 2;
+  box-shadow: 0 -5px 0.5rem rgba(0,0,0,0.2);
+}
+
+.painelFechado {
+  bottom: calc(var(--tamanhoDin) * -1);
+}
+
+@media screen and (min-width: 1200px) {
+  .slotPainel {
+    --tamanhoDin: 20vw;
+    
+    height: 100%;
+    width: var(--tamanhoDin);
+    top: 0;
+    bottom: auto;
+    left: 100%;
+  }
+
+  .painelFechado {
+    left: calc(var(--tamanhoDin) * -1);
+  }
+}

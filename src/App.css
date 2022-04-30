@@ -12,6 +12,7 @@ button {
   flex-direction: column;
   background: radial-gradient(rgba(23,33,60,0.82), rgba(23,33,60,1));
   color: var(--corTextoPrincipal);
+  overflow: hidden;
 }
 
 .corpoSite>main {
@@ -26,6 +27,7 @@ button {
 .corpoSite>nav {
   width: 100%;
   order: 2;
+  z-index: 99999;
 }
 
 @media screen and (min-width:1200px) {

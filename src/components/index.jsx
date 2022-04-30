@@ -3,6 +3,7 @@ import { Campo } from "./Campo";
 import Carta from "./Carta";
 import Holocron from "./Holocron";
 import Menu from "./Menu";
+import PainelMenu from "./PainelMenu";
 import SimboloHolocron from "./SimboloHolocron";
 import Triangulo from "./Triangulo";
 import Modal from "./Modal";
@@ -16,6 +17,7 @@ export {
   Carta,
   Holocron,
   Menu,
+  PainelMenu,
   SimboloHolocron,
   Triangulo,
   Modal,

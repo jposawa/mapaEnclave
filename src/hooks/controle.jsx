@@ -40,6 +40,11 @@ export const ControleProvider = ({children}) => {
   const [camadaPlanetas, setCamadaPlanetas] = React.useState();
   const velocidadePadrao = 12.22375; //Isso seria quantos parsecs por hora em um hyperdrive class 1
   const parsecPonto = 21;
+  const [mostraAstrogacao, setMostraAstrogacao] = React.useState(false);
+  const [mostraBusca, setMostraBusca] = React.useState(false);
+  const [navPlanetas, setNavPlanetas] = React.useState([]);
+  const [classeMotor, setClasseMotor] = React.useState(1);
+  const [planetaBuscado, setPlanetaBuscado] = React.useState();
 
   const pegaDadosLS = (tabela) => {}
 
@@ -88,6 +93,35 @@ export const ControleProvider = ({children}) => {
     })
   }
 
+  const buscaPlaneta = (nomeBuscado) => {
+    if(!nomeBuscado || nomeBuscado.trim() === ""){
+      return;
+    }
+    
+    if(!camadaPlanetas) {
+      console.error("Sem base de dados planetário");
+      return;
+    }
+
+    const camadaPlanetaBuscado = Object.values(camadaPlanetas._layers).find((cp) => (cp.options.name === nomeBuscado));
+
+    if (!camadaPlanetaBuscado || camadaPlanetaBuscado.length === 0) {
+      console.warn("Achamo não");
+      return;
+    }
+   
+    setPlanetaBuscado(camadaPlanetaBuscado);
+  }
+
+  const calculaViagem = () => {
+    console.log("Calculando viagem");
+  }
+
+  const fechaPaineis = () => {
+    setMostraAstrogador(false);
+    setMostraBusca(false);
+  }
+
   React.useEffect(()=>{
     setFbApp(initializeApp(CONFIG.FB_CONFIG));
     pegarPlanetas();
@@ -100,6 +134,18 @@ export const ControleProvider = ({children}) => {
     planetasGeoJson,
     camadaPlanetas,
     setCamadaPlanetas,
+    classeMotor,
+    setClasseMotor,
+    navPlanetas,
+    setNavPlanetas,
+    mostraAstrogacao,
+    setMostraAstrogacao,
+    mostraBusca,
+    setMostraBusca,
+    buscaPlaneta,
+    fechaPaineis,
+    planetaBuscado,
+    setPlanetaBuscado,
     CONFIG,
   };
 

@@ -1,7 +1,7 @@
 .temaPrincipal {
-  --corPrimaria: rgb(13, 53, 161);
-  --corPrimariaEscura: rgb(9,42,129);
-  --corPrimariaMaisEscura: rgb(6,31,100);
+  --corPrimaria: rgb(34, 69, 165);
+  --corPrimariaEscura: rgb(31, 52, 112);
+  --corPrimariaMaisEscura: rgb(20, 34, 72);
   --corPrimariaClara: rgb(32, 74, 190);
   --corPrimariaMaisClara: rgb(69, 102, 194);
   --corSecundaria: rgb(1, 133, 145);
@@ -22,4 +22,8 @@
   --corConfirma: #174;
 
   --corBordaHolocron: #b7b734;
+}
+
+input, select {
+  outline: none;
 }

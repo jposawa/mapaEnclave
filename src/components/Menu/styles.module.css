@@ -7,6 +7,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  z-index: 90000;
 /*   background: var(--corSecundariaMaisEscura); */
 }
 
@@ -28,7 +29,7 @@
   text-shadow: 0 0 0.2rem #fff;
 }
 
-.menu>a{
+.menu>:is(a, button){
   --tamanhoItem: 3.5rem;
 
   border: var(--bordaSelecionado);
@@ -43,15 +44,22 @@
   align-items: center;
   color: inherit;
   z-index: 2;
+  background: none;
   transition: box-shadow 0.3s, border 0.2s, text-shadow 0.3s;
 }
 
-.menu>a:hover {
+.menu>:is(a, button):hover {
   box-shadow: 0 0 20rem rgba(0,0,0,0.5) inset;
 }
 
-.menu>a>p {
+.menu>:is(a, button)>label {
   font-size: 0.6em;  
+}
+
+.btnInline {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media screen and (min-width:1200px) {
@@ -74,7 +82,7 @@
     order: 3 !important;
   }
 
-  .menu p {
+  .menu label {
     position: absolute;
     left: 110%;
     padding: 0.2rem;
@@ -85,7 +93,7 @@
     font-size: 0.8em !important;
   }
 
-  .menu>a:hover p {
+  .menu>:is(a, button):hover>label {
     left: 90%;
     visibility: visible;
     opacity: 0.8;

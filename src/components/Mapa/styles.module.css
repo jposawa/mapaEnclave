@@ -22,3 +22,9 @@
   justify-content: center;
   white-space: nowrap;
 }
+
+.marcadorSelecionado {
+  stroke: 3px;
+  fill: #f00;
+  border: 1px solid #f0f;
+}
