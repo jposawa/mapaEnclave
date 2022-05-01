@@ -44,7 +44,7 @@ export default function Menu() {
       <span className={styles.fundo}/>
 
       <Link to="/astrogacao" className={isThisLocation("astrogacao") ? styles.selecionado : undefined}>
-        <SharedAltOutlined />
+        <ShareAltOutlined />
         <label>Navegar</label>
       </Link>
 
