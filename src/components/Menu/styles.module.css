@@ -11,6 +11,10 @@
 /*   background: var(--corSecundariaMaisEscura); */
 }
 
+.menu label {
+  cursor: pointer;
+}
+
 .menu .fundo {
   position: absolute;
   width: 100%;
