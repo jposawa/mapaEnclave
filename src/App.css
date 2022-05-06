@@ -54,3 +54,7 @@ button {
 .virado90 {
   transform: rotate(90deg);
 }
+
+.txtCentralizado {
+  text-align: center;
+}

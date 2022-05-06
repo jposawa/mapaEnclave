@@ -2,7 +2,7 @@ import React from "react";
 import {useControle} from "../../hooks";
 import { AimOutlined, ShareAltOutlined, GlobalOutlined} from "@ant-design/icons";
 import {Link, useLocation} from "react-router-dom";
-import {PainelMenu, Botao} from "../";
+import {PainelMenu, Botao, Astrogador} from "../";
 
 import styles from "./styles.module.css";
 
@@ -44,10 +44,14 @@ export default function Menu() {
     <nav className={styles.menu} onClick={() => {setMostraModal(false)}}>
       <span className={styles.fundo}/>
 
-      <Link to="/astrogacao" className={isThisLocation("astrogacao") ? styles.selecionado : undefined}>
+      <button 
+        className={mostraAstrogacao ? styles.selecionado : undefined} 
+        type="button" 
+        onClick={()=>{setMostraAstrogacao(!mostraAstrogacao)}}
+      >
         <ShareAltOutlined />
-        <label>Navegar</label>
-      </Link>
+        <label>Rota</label>
+      </button>
 
       {isThisLocation("astrogacao") ? (
         <Link to="/mapa">
@@ -77,6 +81,10 @@ export default function Menu() {
             <p>Buscar</p>
           </Botao>
         </form>
+      </PainelMenu>
+
+      <PainelMenu mostra={mostraAstrogacao} defineMostra={setMostraAstrogacao}>
+        <Astrogador />
       </PainelMenu>
     </nav>
   )
