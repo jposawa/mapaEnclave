@@ -24,6 +24,7 @@ import {
 	Tooltip,
 	useMapEvents
 } from 'react-leaflet';
+import {CRS} from "leaflet";
 import { useControle } from '../../hooks';
 
 import styles from './styles.module.css';
@@ -109,7 +110,12 @@ const EventosMapa = props => {
 			if (planetasGeoJson && !camadaPlanetasLocal) {
 				const _camadaPlanetas = L.geoJson(planetasGeoJson, {
 					pointToLayer: (p, latlng) => {
-						const marcador = L.circleMarker(latlng, {
+
+            if(!mapa.getPane(p?.properties?.Region.replace(" ", ""))) {
+              mapa.createPane(p?.properties?.Region.replace(" ", ""));
+            }
+            
+            const marcador = L.circleMarker(latlng, {
 							radius: 6,
 							weight: 1,
 							color: '#eee',
@@ -117,11 +123,12 @@ const EventosMapa = props => {
 							fillColor: '#369',
 							name: p.properties.Name,
               id: p.id,
+              regiao: p?.properties?.Region,
               className: `planeta#${p.id} ${styles.marcadorPlaneta}`,
+              pane: p.properties?.Region.replace(" ", ""),
 						}).on('contextmenu', (m) => {
               const marcDOM = document.getElementsByClassName(`planeta#${m.target.options.id}`);
               for(let i = marcDOM.length - 1; i > 0; i--) {
-                console.log(marcDOM[i]);
                 marcDOM[i].remove();
               }
               marcDOM[0].classList.add(styles.marcadorSelecionado);
@@ -142,6 +149,7 @@ const EventosMapa = props => {
 
 				setCamadaPlanetasLocal(_camadaPlanetas);
 				_camadaPlanetas.addTo(mapa);
+        console.log(mapa);
 			}
 		},
 		[mapa, planetasGeoJson]
@@ -194,6 +202,7 @@ export default function Mapa(props) {
 			zoom={6}
 			ref={mapRef}
 			minZoom={2}
+      crs={CRS.Simple}
 		>
 			<EventosMapa />
 		</MapContainer>
