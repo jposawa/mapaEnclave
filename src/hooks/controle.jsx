@@ -45,6 +45,7 @@ export const ControleProvider = ({children}) => {
   const [navPlanetas, setNavPlanetas] = React.useState([]);
   const [classeMotor, setClasseMotor] = React.useState(1);
   const [planetaBuscado, setPlanetaBuscado] = React.useState();
+  const [planetasRota, setPlanetasRota] = React.useState([]);
 
   const pegaDadosLS = (tabela) => {}
 
@@ -146,6 +147,8 @@ export const ControleProvider = ({children}) => {
     fechaPaineis,
     planetaBuscado,
     setPlanetaBuscado,
+    setPlanetasRota,
+    planetasRota,
     CONFIG,
   };
 

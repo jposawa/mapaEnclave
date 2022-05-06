@@ -2,7 +2,7 @@ import React from "react";
 import {useControle} from "../../hooks";
 import { AimOutlined, ShareAltOutlined, GlobalOutlined} from "@ant-design/icons";
 import {Link, useLocation} from "react-router-dom";
-import {PainelMenu, Botao} from "../";
+import {PainelMenu, Botao, Astrogador} from "../";
 
 import styles from "./styles.module.css";
 
@@ -39,15 +39,29 @@ export default function Menu() {
 
     buscaPlaneta(buscaDOM?.value);
   }
+
+  const alternaBusca = () => {
+    setMostraBusca(!mostraBusca);
+    setMostraAstrogacao(false);
+  }
+
+  const alternaAstrogacao = () => {
+    setMostraAstrogacao(!mostraAstrogacao);
+    setMostraBusca(false);
+  }
   
   return (
     <nav className={styles.menu} onClick={() => {setMostraModal(false)}}>
       <span className={styles.fundo}/>
 
-      <Link to="/astrogacao" className={isThisLocation("astrogacao") ? styles.selecionado : undefined}>
+      <button 
+        className={mostraAstrogacao ? styles.selecionado : undefined} 
+        type="button" 
+        onClick={alternaAstrogacao}
+      >
         <ShareAltOutlined />
-        <label>Navegar</label>
-      </Link>
+        <label>Rota</label>
+      </button>
 
       {isThisLocation("astrogacao") ? (
         <Link to="/mapa">
@@ -58,7 +72,7 @@ export default function Menu() {
         <button 
           className={mostraBusca ? styles.selecionado : undefined} 
           type="button" 
-          onClick={()=>{setMostraBusca(!mostraBusca)}}
+          onClick={alternaBusca}
         >
           <AimOutlined />
           <label>Buscar</label>
@@ -71,12 +85,16 @@ export default function Menu() {
       </datalist>
       
       <PainelMenu mostra={mostraBusca} defineMostra={setMostraBusca}>
-        <form onSubmit={chamaBuscaPlaneta}>
+        <form className={styles.formBusca} onSubmit={chamaBuscaPlaneta}>
           <input type="text" list="listaPlanetas" placeholder="Planeta" ref={buscaRef} />
           <Botao type="submit" secundario className={styles.btnInline}>
             <p>Buscar</p>
           </Botao>
         </form>
+      </PainelMenu>
+
+      <PainelMenu mostra={mostraAstrogacao} defineMostra={setMostraAstrogacao}>
+        <Astrogador />
       </PainelMenu>
     </nav>
   )

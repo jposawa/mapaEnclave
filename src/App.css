@@ -10,7 +10,7 @@ button {
   left: 0;
   display: flex;
   flex-direction: column;
-  background: radial-gradient(rgba(23,33,60,0.82), rgba(23,33,60,1));
+  background: radial-gradient(rgba(2,3,6,0.82), rgba(2,3,6,1));
   color: var(--corTextoPrincipal);
   overflow: hidden;
 }
@@ -53,4 +53,8 @@ button {
 
 .virado90 {
   transform: rotate(90deg);
+}
+
+.txtCentralizado {
+  text-align: center;
 }
