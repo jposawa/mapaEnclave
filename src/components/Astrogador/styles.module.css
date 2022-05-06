@@ -37,8 +37,10 @@
   text-align: center;
 }
 
-.slotBotao {
-  text-align: center;
+.slotBotoes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .resultados {

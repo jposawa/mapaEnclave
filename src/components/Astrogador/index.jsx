@@ -5,7 +5,7 @@ import {Botao} from "../";
 import styles from "./styles.module.css";
 
 export default function Astrogador(props) {
-  const {setMostraModal, planetas} = useControle();
+  const {setMostraModal, planetas, setPlanetasRota} = useControle();
   const refOrigem = React.useRef();
   const refDestino = React.useRef();
   const refPropulsor = React.useRef();
@@ -41,8 +41,15 @@ export default function Astrogador(props) {
     const distanciaPc = resultado * parsecPonto;
     const tempoBruto = (distanciaPc/velocidadePadrao) * classePropulsor;
 
+    setPlanetasRota([origem, destino]);
     setDistancia(distanciaPc);
     formataTempo(tempoBruto);
+  }
+
+  const limpaRota = () => {
+    setDistancia();
+    setTempo();
+    setPlanetasRota([]);
   }
 
   /*
@@ -79,7 +86,8 @@ export default function Astrogador(props) {
               />
             </p>
   
-            <p className={styles.txtCentralizado}>
+            <p className={styles.slotBotoes}>
+              <Botao complementar type="reset" onClick={limpaRota}>Limpar</Botao>
               <Botao secundario type="submit">Calcular</Botao>
             </p>
           </form>

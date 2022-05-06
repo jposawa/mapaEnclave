@@ -39,6 +39,16 @@ export default function Menu() {
 
     buscaPlaneta(buscaDOM?.value);
   }
+
+  const alternaBusca = () => {
+    setMostraBusca(!mostraBusca);
+    setMostraAstrogacao(false);
+  }
+
+  const alternaAstrogacao = () => {
+    setMostraAstrogacao(!mostraAstrogacao);
+    setMostraBusca(false);
+  }
   
   return (
     <nav className={styles.menu} onClick={() => {setMostraModal(false)}}>
@@ -47,7 +57,7 @@ export default function Menu() {
       <button 
         className={mostraAstrogacao ? styles.selecionado : undefined} 
         type="button" 
-        onClick={()=>{setMostraAstrogacao(!mostraAstrogacao)}}
+        onClick={alternaAstrogacao}
       >
         <ShareAltOutlined />
         <label>Rota</label>
@@ -62,7 +72,7 @@ export default function Menu() {
         <button 
           className={mostraBusca ? styles.selecionado : undefined} 
           type="button" 
-          onClick={()=>{setMostraBusca(!mostraBusca)}}
+          onClick={alternaBusca}
         >
           <AimOutlined />
           <label>Buscar</label>
@@ -75,7 +85,7 @@ export default function Menu() {
       </datalist>
       
       <PainelMenu mostra={mostraBusca} defineMostra={setMostraBusca}>
-        <form onSubmit={chamaBuscaPlaneta}>
+        <form className={styles.formBusca} onSubmit={chamaBuscaPlaneta}>
           <input type="text" list="listaPlanetas" placeholder="Planeta" ref={buscaRef} />
           <Botao type="submit" secundario className={styles.btnInline}>
             <p>Buscar</p>

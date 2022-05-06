@@ -23,6 +23,11 @@
   white-space: nowrap;
 }
 
+.linhaRota {
+  stroke: yellow;
+  z-index:500;
+}
+
 .marcadorPlaneta {
 }
 
