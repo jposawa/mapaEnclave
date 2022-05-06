@@ -106,11 +106,11 @@ const EventosMapa = props => {
 
 	React.useMemo(
 		() => {
-			if (planetasGeoJson) {
+			if (planetasGeoJson && !camadaPlanetasLocal) {
 				const _camadaPlanetas = L.geoJson(planetasGeoJson, {
 					pointToLayer: (p, latlng) => {
 						const marcador = L.circleMarker(latlng, {
-							radius: 5,
+							radius: 6,
 							weight: 1,
 							color: '#eee',
 							fillOpacity: 1,
@@ -119,9 +119,12 @@ const EventosMapa = props => {
               id: p.id,
               className: `planeta#${p.id} ${styles.marcadorPlaneta}`,
 						}).on('contextmenu', (m) => {
-              const [marcDOM] = document.getElementsByClassName(`planeta#${m.target.options.id}`);
-              console.log(marcDOM);
-              marcDOM.classList.add(styles.marcadorSelecionado);
+              const marcDOM = document.getElementsByClassName(`planeta#${m.target.options.id}`);
+              for(let i = marcDOM.length - 1; i > 0; i--) {
+                console.log(marcDOM[i]);
+                marcDOM[i].remove();
+              }
+              marcDOM[0].classList.add(styles.marcadorSelecionado);
             });
 						marcador.bindPopup(
 							p.properties.Name
@@ -169,7 +172,9 @@ const EventosMapa = props => {
         setPlanetaBuscado();
         mapa.setZoom(7, {animate: true, duration: duracaoMovimentoAutomatico});
       }
-    }
+    },
+    loaded: () => {console.log("loaded")},
+    load: () => {console.log("load")},
 	});
 
 	return null;
@@ -181,11 +186,6 @@ export default function Mapa(props) {
 	const [marcadorTeste, setMarcadorTeste] = React.useState();
 	const [map, setMap] = React.useState();
 	const mapRef = React.useRef();
-
-	const teste = e => {
-		const mapa = e.target;
-		console.log(mapa);
-	};
 
 	return (
 		<MapContainer
