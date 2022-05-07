@@ -41,6 +41,7 @@ const EventosMapa = props => {
     planetaBuscado, 
     setPlanetaBuscado,
     planetasRota,
+    removerDuplicidadeDOM,
   } = useControle();
 	const [camadaPlanetasLocal, setCamadaPlanetasLocal] = React.useState();
 	const [listaNomesPlanetas, setListaNomesPlanetas] = React.useState({});
@@ -137,9 +138,10 @@ const EventosMapa = props => {
               pane: p.properties?.Region.replace(" ", ""),
 						}).on('contextmenu', (m) => {
               const marcDOM = document.getElementsByClassName(`planeta#${m.target.options.id}`);
-              for(let i = marcDOM.length - 1; i > 0; i--) {
-                marcDOM[i].remove();
-              }
+              removerDuplicidadeDOM(marcDOM);
+              // for(let i = marcDOM.length - 1; i > 0; i--) {
+              //   marcDOM[i].remove();
+              // }
               marcDOM[0].classList.add(styles.marcadorSelecionado);
             });
 						marcador.bindPopup(
@@ -184,7 +186,12 @@ const EventosMapa = props => {
     let novaLinha;
     if(linhaRota) {
       const linhasDOM = document.getElementsByClassName(styles.linhaRota);
+      const planetasMarcadosDOM = document.getElementsByClassName(styles.marcadorSelecionado);
+      
       Object.values(linhasDOM).forEach((l) => {l.remove()});
+      Object.values(planetasMarcadosDOM).forEach((pm) => {
+        pm.classList.remove(styles.marcadorSelecionado);
+      });
     }
     
     if(planetasRota.length === 2) {
@@ -192,8 +199,14 @@ const EventosMapa = props => {
       
       for(let i = 0; i < 2; i++) {
         const _planeta = planetasRota[i];
+        _planeta.bringToFront();
+        const _planetaDOM = document.getElementsByClassName(`planeta#${_planeta.options.id}`);
+        removerDuplicidadeDOM(_planetaDOM);
+        // console.log(_planetaDOM);
+        // console.log(_planeta);
         
-        coordenadas.push([_planeta.Y, _planeta.X]);
+        coordenadas.push([_planeta._latlng.lat, _planeta._latlng.lng]);
+        _planetaDOM[0].classList.add(styles.marcadorSelecionado);
       }
 
       novaLinha = L.polyline(coordenadas, {
@@ -208,10 +221,10 @@ const EventosMapa = props => {
         padding: [50,50],
       });
       
-      setLinhaRota(novaLinha);
+      // setLinhaRota(novaLinha);
     }
 
-    // setLinhaRota(novaLinha);
+    setLinhaRota(novaLinha);
   }, [planetasRota]);
   
   //EVENTOS MAPA
@@ -237,32 +250,6 @@ export default function Mapa(props) {
 	const [marcadorTeste, setMarcadorTeste] = React.useState();
 	const [map, setMap] = React.useState();
 	const mapRef = React.useRef();
-  const [linha, setLinha] = React.useState({
-    desenha: false,
-    coordenadas: [
-      {lat: undefined, lng: undefined},
-      {lat: undefined, lng: undefined},
-    ],
-  });
-
-  React.useMemo(() => {
-    const _linha = JSON.parse(JSON.stringify(linha));
-
-    if(planetasRota?.length === 2) {
-      for(let i = 0; i < 2; i++) {
-        const _planeta = planetasRota[i];
-        _linha.coordenadas[i].lat = _planeta.Y;
-        _linha.coordenadas[i].lng = _planeta.X;
-      }
-      
-      _linha.desenha = true;
-    }
-    else {
-      _linha.desenha = false;
-    }
-
-    setLinha(_linha);
-  }, [planetasRota]);
 
 	return (
 		<MapContainer

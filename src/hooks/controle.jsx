@@ -123,6 +123,25 @@ export const ControleProvider = ({children}) => {
     setMostraBusca(false);
   }
 
+  const pegaPlanetaMapa = (nomePlaneta) => {
+    // console.log(nomePlaneta);
+    // console.log(camadaPlanetas);
+    if(camadaPlanetas) {
+      const [planetaMapa] = Object.values(camadaPlanetas._layers).filter((p) => (p.options.name === nomePlaneta));
+
+      // console.log(planetaMapa);
+      return planetaMapa;
+    }
+  }
+
+  const removerDuplicidadeDOM = (arrayDOM) => {
+    if(arrayDOM && arrayDOM.length > 1) {
+      for(let i = arrayDOM.length - 1; i > 0; i--) {
+        arrayDOM[i].remove();
+      }
+    }
+  }
+
   React.useEffect(()=>{
     setFbApp(initializeApp(CONFIG.FB_CONFIG));
     pegarPlanetas();
@@ -149,6 +168,8 @@ export const ControleProvider = ({children}) => {
     setPlanetaBuscado,
     setPlanetasRota,
     planetasRota,
+    pegaPlanetaMapa,
+    removerDuplicidadeDOM,
     CONFIG,
   };
 

@@ -25,7 +25,9 @@
 
 .linhaRota {
   stroke: cyan;
-  z-index:500;
+  z-index:50000;
+
+  animation: piscando 1s infinite;
 }
 
 .marcadorPlaneta {
@@ -33,6 +35,20 @@
 
 .marcadorSelecionado {
   animation: animSelecionado 1s infinite;
+}
+
+@keyframes piscando {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 @keyframes animSelecionado {

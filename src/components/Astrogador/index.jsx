@@ -5,7 +5,7 @@ import {Botao} from "../";
 import styles from "./styles.module.css";
 
 export default function Astrogador(props) {
-  const {setMostraModal, planetas, setPlanetasRota} = useControle();
+  const {setMostraModal, planetas, setPlanetasRota, pegaPlanetaMapa} = useControle();
   const refOrigem = React.useRef();
   const refDestino = React.useRef();
   const refPropulsor = React.useRef();
@@ -41,7 +41,7 @@ export default function Astrogador(props) {
     const distanciaPc = resultado * parsecPonto;
     const tempoBruto = (distanciaPc/velocidadePadrao) * classePropulsor;
 
-    setPlanetasRota([origem, destino]);
+    setPlanetasRota([pegaPlanetaMapa(origem.Name), pegaPlanetaMapa(destino.Name)]);
     setDistancia(distanciaPc);
     formataTempo(tempoBruto);
   }
