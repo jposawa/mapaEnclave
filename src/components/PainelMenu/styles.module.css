@@ -1,8 +1,9 @@
 .slotPainel {
-  --tamanhoDin: 20vh;
+  --tamanhoDin: 12rem;
   
   position: absolute;
   width: 100%;
+  max-height: 15rem;
   height: var(--tamanhoDin);
   bottom: 100%;
   left: 0;
@@ -12,6 +13,7 @@
   align-items: center;
   z-index: 10;
   transition: all 0.3s;
+  overflow: hidden;
 }
 
 .slotPainel>form {
@@ -32,13 +34,14 @@
   top: 0;
   left: 0;
   background: var(--corPrimariaMaisEscura);
-  opacity: 0.8;
+  opacity: 0.95;
   z-index: 2;
   box-shadow: 0 -5px 0.5rem rgba(0,0,0,0.2);
 }
 
 .painelFechado {
-  bottom: calc(var(--tamanhoDin) * -1);
+/*   bottom: calc(var(--tamanhoDin) * -1); */
+  max-height: 0;
 }
 
 @media screen and (min-width: 1200px) {
@@ -47,12 +50,14 @@
     
     height: 100%;
     width: var(--tamanhoDin);
+    max-width: 50vw;
     top: 0;
     bottom: auto;
     left: 100%;
   }
 
   .painelFechado {
-    left: calc(var(--tamanhoDin) * -1);
+/*     left: calc(var(--tamanhoDin) * -1); */
+    max-width: 0;
   }
 }

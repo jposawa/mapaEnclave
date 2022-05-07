@@ -62,16 +62,21 @@ export default function Astrogador(props) {
   
   return (
     <>
+      <datalist id="listaPlanetasAst">
+        {planetas && planetas.map((p) => (
+          p.Name && <option key={`${p.technicalId}|${p.Name}`} value={p.Name}/>
+        ))}
+      </datalist>
       <div className={styles.slotCalculo}>
           <form className={styles.formCalculo} onSubmit={calcularDestino}>
             <p>
               <span>Origem: </span>
-              <input id="campoOrigem" type="text" placeholder="Sistema origem" list="listaPlanetas" ref={refOrigem} required/>
+              <input id="campoOrigem" type="text" placeholder="Sistema origem" list="listaPlanetasAst" ref={refOrigem} required/>
             </p>
   
             <p>
               <span>Destino: </span>
-              <input id="campoDestino" type="text" placeholder="Sistema destino" list="listaPlanetas" ref={refDestino} required/>
+              <input id="campoDestino" type="text" placeholder="Sistema destino" list="listaPlanetasAst" ref={refDestino} required/>
             </p>
 
             <p>
