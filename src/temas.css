@@ -27,3 +27,26 @@
 input, select {
   outline: none;
 }
+
+.marcadorSelecionado {
+  animation: animSelecionado 1s infinite;
+}
+
+@keyframes animSelecionado {
+  0% {
+    stroke-width: 0.2rem;
+    stroke: rgba(255, 255, 255, 1);
+/*     fill-opacity: 1; */
+    filter: hue-rotate(0) brightness(1);
+  }
+
+  50% {
+    filter: hue-rotate(180deg) brightness(1.5);
+  }
+  
+  100% {
+    stroke-width: 1rem;
+    stroke: rgba(255, 255, 255, 0);
+    filter: hue-rotate(0) brightness(1);
+  }
+}
