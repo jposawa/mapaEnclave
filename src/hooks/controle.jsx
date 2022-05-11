@@ -38,7 +38,7 @@ export const ControleProvider = ({children}) => {
   const [planetasGeoJson, setPlanetasGeoJson] = React.useState();
   const [camadaPlanetas, setCamadaPlanetas] = React.useState();
   const velocidadePadrao = 12.22375; //Isso seria quantos parsecs por hora em um hyperdrive class 1
-  const margemMapa = 1; //Essa margem é calculada para compensar a mudança de escala
+  const margemMapa = 0.5; //Essa margem é calculada para compensar a mudança de escala
   const parsecPonto = 1.5 * margemMapa;
   const [mostraAstrogacao, setMostraAstrogacao] = React.useState(false);
   const [mostraBusca, setMostraBusca] = React.useState(false);

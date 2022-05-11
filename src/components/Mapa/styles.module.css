@@ -1,19 +1,12 @@
 .mapa {
   background: rgba(0,0,0,0);
   outline: none !important;
-}
-
-.etiquetaPlaneta {
-  color: yellow;
-  background: none;
-  border: none;
-  box-shadow: none;
 } 
 
 .popupPlaneta {}
 
-.etiquetaPlaneta:before {
-  border: none !important;
+.etiquetaPlaneta {
+  transition: opacity 0.3s;
 }
 
 .nomePlaneta {
@@ -32,8 +25,7 @@
   animation: piscando 1s infinite;
 }
 
-.marcadorPlaneta {
-}
+.marcadorPlaneta {}
 
 .marcadorSelecionado {
   animation: animSelecionado 1s infinite;
