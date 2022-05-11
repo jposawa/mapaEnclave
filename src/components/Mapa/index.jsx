@@ -76,7 +76,7 @@ const EventosMapa = props => {
     }
   };
 
-  const gerenciaTooltip = () => {
+  const gerenciaLabel = () => {
     const planetas = Object.values(camadaPlanetasLocal?._layers);
     const bordasMapa = mapa.getBounds();
 
@@ -90,7 +90,6 @@ const EventosMapa = props => {
       ) {
         colocaTexto(nomePlaneta, p.getLatLng(), p);
       } else if (!referencias.includes(p.options.name)) {
-        p.unbindTooltip();
         const marcadorNomePlaneta = listaNomesPlanetas[p.options.name];
 
         if (marcadorNomePlaneta) {
@@ -140,6 +139,11 @@ const EventosMapa = props => {
                 : 'Sistema desconhecido'
             );
 
+            marcador.bindTooltip(p.properties.Name ? p.properties.Name : "Sistema desconhecido", {
+              className: styles.etiquetaPlaneta,
+              direction: "top",
+            });
+
             return marcador;
           }
         });
@@ -154,7 +158,7 @@ const EventosMapa = props => {
   React.useEffect(
     () => {
       if (camadaPlanetasLocal) {
-        gerenciaTooltip();
+        gerenciaLabel();
         setCamadaPlanetas(camadaPlanetasLocal);
       }
     },
@@ -215,7 +219,7 @@ const EventosMapa = props => {
 
   //EVENTOS MAPA
   useMapEvents({
-    move: gerenciaTooltip,
+    move: gerenciaLabel,
     moveend: () => {
       if (moveBusca) {
         setMoveBusca(false);
@@ -244,7 +248,7 @@ export default function Mapa() {
       zoom={2}
       ref={mapRef}
       crs={CRS.Simple}
-      minZoom={-2}
+      minZoom={-3}
       maxZoom={6}
     >
       <EventosMapa />
