@@ -245,6 +245,7 @@ export default function Mapa() {
       ref={mapRef}
       crs={CRS.Simple}
       minZoom={-2}
+      maxZoom={6}
     >
       <EventosMapa />
     </MapContainer>
