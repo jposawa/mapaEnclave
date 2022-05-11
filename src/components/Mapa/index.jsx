@@ -13,51 +13,51 @@
 import React from 'react';
 import 'leaflet/dist/leaflet.css';
 import {
-	MapContainer,
-	TileLayer,
-	useMap,
-	Marker,
-	Popup,
-	GeoJSON,
-	FeatureGroup,
-	CircleMarker,
-	Tooltip,
-	useMapEvents,
+  MapContainer,
+  TileLayer,
+  useMap,
+  Marker,
+  Popup,
+  GeoJSON,
+  FeatureGroup,
+  CircleMarker,
+  Tooltip,
+  useMapEvents,
   Polyline,
 } from 'react-leaflet';
-import {CRS} from "leaflet";
+import { CRS } from "leaflet";
 import { useControle } from '../../hooks';
 
 import styles from './styles.module.css';
 
 const EventosMapa = props => {
-	// const {camadaPlanetas} = props;
+  // const {camadaPlanetas} = props;
   const [moveBusca, setMoveBusca] = React.useState(false);
-	const mapa = useMap();
-	const { 
-    planetasGeoJson, 
-    camadaPlanetas, 
-    setCamadaPlanetas, 
-    planetaBuscado, 
+  const mapa = useMap();
+  const {
+    planetasGeoJson,
+    camadaPlanetas,
+    setCamadaPlanetas,
+    planetaBuscado,
     setPlanetaBuscado,
     planetasRota,
     removerDuplicidadeDOM,
   } = useControle();
-	const [camadaPlanetasLocal, setCamadaPlanetasLocal] = React.useState();
-	const [listaNomesPlanetas, setListaNomesPlanetas] = React.useState({});
-	const referencias = [
-		'Coruscant',
-		'Corellia',
-		'Tatooine',
-		'Naboo',
-		'Hosnian Prime',
-		'Ilum'
-	];
+  const [camadaPlanetasLocal, setCamadaPlanetasLocal] = React.useState();
+  const [listaNomesPlanetas, setListaNomesPlanetas] = React.useState({});
+  const referencias = [
+    'Coruscant',
+    'Corellia',
+    'Tatooine',
+    'Naboo',
+    'Hosnian Prime',
+    'Ilum'
+  ];
   const duracaoMovimentoAutomatico = 1.5;
   const [linhaRota, setLinhaRota] = React.useState();
 
-	const colocaTexto = (texto, coord, marcPlaneta) => {
-		const lista = listaNomesPlanetas;
+  const colocaTexto = (texto, coord, marcPlaneta) => {
+    const lista = listaNomesPlanetas;
 		/* const nomeExistente = lista.filter((np) => {
       console.table({
         nomeMarc: np.options.name,
@@ -65,78 +65,72 @@ const EventosMapa = props => {
       });
       return (np.options.name === texto)
     }); */
-		if (!lista[texto]) {
-			const icone = L.divIcon({
-				className: styles.nomePlaneta,
-				html: texto,
-				iconAnchor: [3.1 * texto.length, -5]
-			});
+    if (!lista[texto]) {
+      const icone = L.divIcon({
+        className: styles.nomePlaneta,
+        html: texto,
+        iconAnchor: [3.1 * texto.length, -5]
+      });
 
-			const mTexto = L.marker(coord, {
-				icon: icone,
-				name: texto
-			}).on('click', () => {
-				marcPlaneta.openPopup();
-			});
+      const mTexto = L.marker(coord, {
+        icon: icone,
+        name: texto
+      }).on('click', () => {
+        marcPlaneta.openPopup();
+      });
 
-			lista[texto] = mTexto;
-			mTexto.addTo(mapa);
-		}
-	};
+      lista[texto] = mTexto;
+      mTexto.addTo(mapa);
+    }
+  };
 
-	const gerenciaTooltip = () => {
-		const planetas = Object.values(camadaPlanetasLocal?._layers);
-		const bordasMapa = mapa.getBounds();
+  const gerenciaTooltip = () => {
+    const planetas = Object.values(camadaPlanetasLocal ?._layers);
+    const bordasMapa = mapa.getBounds();
 
-		planetas.forEach(p => {
-			// console.log(p);
-			const nomePlaneta = p.options.name;
-			if (
-				bordasMapa.contains(p.getLatLng()) &&
-				(mapa.getZoom() > 5 || referencias.includes(nomePlaneta))
-			) {
-				if (nomePlaneta) {
-					// p.bindTooltip(nomePlaneta, {
-					//   permanent: true,
-					//   direction: "bottom",
-					//   className: styles.etiquetaPlaneta,
-					// });
-					colocaTexto(nomePlaneta, p.getLatLng(), p);
-				}
-			} else if (!referencias.includes(p.options.name)) {
-				p.unbindTooltip();
-				const marcadorNomePlaneta = listaNomesPlanetas[p.options.name];
+    planetas.forEach(p => {
+      // console.log(p);
+      const nomePlaneta = p.options.name;
+      if (
+        bordasMapa.contains(p.getLatLng()) &&
+        (mapa.getZoom() > 0 || referencias.includes(nomePlaneta)) &&
+        nomePlaneta
+      ) {
+        colocaTexto(nomePlaneta, p.getLatLng(), p);
+      } else if (!referencias.includes(p.options.name)) {
+        p.unbindTooltip();
+        const marcadorNomePlaneta = listaNomesPlanetas[p.options.name];
 
-				if (marcadorNomePlaneta) {
-					mapa.removeLayer(marcadorNomePlaneta);
-					delete listaNomesPlanetas[p.options.name];
-				}
-			}
-		});
-	};
+        if (marcadorNomePlaneta) {
+          mapa.removeLayer(marcadorNomePlaneta);
+          delete listaNomesPlanetas[p.options.name];
+        }
+      }
+    });
+  };
 
-	React.useMemo(
-		() => {
-			if (planetasGeoJson && !camadaPlanetasLocal) {
-				const _camadaPlanetas = L.geoJson(planetasGeoJson, {
-					pointToLayer: (p, latlng) => {
+  React.useMemo(
+    () => {
+      if (planetasGeoJson && !camadaPlanetasLocal) {
+        const _camadaPlanetas = L.geoJson(planetasGeoJson, {
+          pointToLayer: (p, latlng) => {
 
-            if(!mapa.getPane(p?.properties?.Region.replace(" ", ""))) {
-              mapa.createPane(p?.properties?.Region.replace(" ", ""));
+            if (!mapa.getPane(p ?.properties ?.Region.replace(" ", ""))) {
+              mapa.createPane(p ?.properties ?.Region.replace(" ", ""));
             }
-            
+
             const marcador = L.circleMarker(latlng, {
-							radius: 6,
-							weight: 1,
-							color: '#eee',
-							fillOpacity: 1,
-							fillColor: '#369',
-							name: p.properties.Name,
+              radius: 6,
+              weight: 1,
+              color: '#eee',
+              fillOpacity: 1,
+              fillColor: '#369',
+              name: p.properties.Name,
               id: p.id,
-              regiao: p?.properties?.Region,
+              regiao: p ?.properties ?.Region,
               className: `planeta#${p.id} ${styles.marcadorPlaneta}`,
-              pane: p.properties?.Region.replace(" ", ""),
-						}).on('contextmenu', (m) => {
+              pane: p.properties ?.Region.replace(" ", ""),
+            }).on('contextmenu', (m) => {
               const marcDOM = document.getElementsByClassName(`planeta#${m.target.options.id}`);
               removerDuplicidadeDOM(marcDOM);
               // for(let i = marcDOM.length - 1; i > 0; i--) {
@@ -144,67 +138,67 @@ const EventosMapa = props => {
               // }
               marcDOM[0].classList.add(styles.marcadorSelecionado);
             });
-						marcador.bindPopup(
-							p.properties.Name
-								? `<div><a href="${p.properties.Link}" target="blank">${
-										p.properties.Name
-								  }</a><p>X:${p.properties.X.toFixed(
-										2
-								  )}, Y:${p.properties.Y.toFixed(2)}</p></div>`
-								: 'Sistema desconhecido'
-						);
+            marcador.bindPopup(
+              p.properties.Name
+                ? `<div><a href="${p.properties.Link}" target="blank">${
+                p.properties.Name
+                }</a><p>X:${p.properties.X.toFixed(
+                  2
+                )}, Y:${p.properties.Y.toFixed(2)}</p></div>`
+                : 'Sistema desconhecido'
+            );
 
-						return marcador;
-					}
-				});
+            return marcador;
+          }
+        });
 
-				setCamadaPlanetasLocal(_camadaPlanetas);
-				_camadaPlanetas.addTo(mapa);
-			}
-		},
-		[mapa, planetasGeoJson]
-	);
+        setCamadaPlanetasLocal(_camadaPlanetas);
+        _camadaPlanetas.addTo(mapa);
+      }
+    },
+    [mapa, planetasGeoJson]
+  );
 
-	React.useEffect(
-		() => {
-			if (camadaPlanetasLocal) {
-				gerenciaTooltip();
-				setCamadaPlanetas(camadaPlanetasLocal);
-			}
-		},
-		[camadaPlanetasLocal]
-	);
+  React.useEffect(
+    () => {
+      if (camadaPlanetasLocal) {
+        gerenciaTooltip();
+        setCamadaPlanetas(camadaPlanetasLocal);
+      }
+    },
+    [camadaPlanetasLocal]
+  );
 
   React.useMemo(() => {
-    if(planetaBuscado) {
+    if (planetaBuscado) {
       setMoveBusca(true);
-      mapa.panTo(planetaBuscado.getLatLng(), {animate: true, duration: duracaoMovimentoAutomatico});
+      mapa.panTo(planetaBuscado.getLatLng(), { animate: true, duration: duracaoMovimentoAutomatico });
     }
   }, [planetaBuscado]);
 
   React.useMemo(() => {
     let novaLinha;
-    if(linhaRota) {
+    if (linhaRota) {
       const linhasDOM = document.getElementsByClassName(styles.linhaRota);
       const planetasMarcadosDOM = document.getElementsByClassName(styles.marcadorSelecionado);
-      
-      Object.values(linhasDOM).forEach((l) => {l.remove()});
+
+      Object.values(linhasDOM).forEach((l) => { l.remove() });
       Object.values(planetasMarcadosDOM).forEach((pm) => {
         pm.classList.remove(styles.marcadorSelecionado);
       });
     }
-    
-    if(planetasRota.length === 2) {
+
+    if (planetasRota.length === 2) {
       const coordenadas = [];
-      
-      for(let i = 0; i < 2; i++) {
+
+      for (let i = 0; i < 2; i++) {
         const _planeta = planetasRota[i];
         _planeta.bringToFront();
         const _planetaDOM = document.getElementsByClassName(`planeta#${_planeta.options.id}`);
         removerDuplicidadeDOM(_planetaDOM);
         // console.log(_planetaDOM);
         // console.log(_planeta);
-        
+
         coordenadas.push([_planeta._latlng.lat, _planeta._latlng.lng]);
         _planetaDOM[0].classList.add(styles.marcadorSelecionado);
       }
@@ -218,49 +212,45 @@ const EventosMapa = props => {
       mapa.fitBounds(novaLinha.getBounds(), {
         animate: true,
         duration: 0.5,
-        padding: [50,50],
+        padding: [50, 50],
       });
-      
+
       // setLinhaRota(novaLinha);
     }
 
     setLinhaRota(novaLinha);
   }, [planetasRota]);
-  
+
   //EVENTOS MAPA
-	useMapEvents({
-		move: gerenciaTooltip,
+  useMapEvents({
+    move: gerenciaTooltip,
     moveend: () => {
-      if(moveBusca) {
+      if (moveBusca) {
         setMoveBusca(false);
         setPlanetaBuscado();
-        mapa.setZoom(7, {animate: true, duration: duracaoMovimentoAutomatico});
+        mapa.setZoom(7, { animate: true, duration: duracaoMovimentoAutomatico });
       }
     },
-    loaded: () => {console.log("loaded")},
-    load: () => {console.log("load")},
-	});
+    loaded: () => { console.log("loaded") },
+    load: () => { console.log("load") },
+  });
 
-	return null;
+  return null;
 };
 
-export default function Mapa(props) {
-	const { className, tamanho, cor } = props;
-	const { planetas, planetasGeoJson, planetasRota } = useControle();
-	const [marcadorTeste, setMarcadorTeste] = React.useState();
-	const [map, setMap] = React.useState();
-	const mapRef = React.useRef();
+export default function Mapa() {
+  const mapRef = React.useRef();
 
-	return (
-		<MapContainer
-			className={styles.mapa}
-			center={[0, 0]}
-			zoom={6}
-			ref={mapRef}
-			minZoom={2}
+  return (
+    <MapContainer
+      className={styles.mapa}
+      center={[0, 0]}
+      zoom={2}
+      ref={mapRef}
       crs={CRS.Simple}
-		>
-			<EventosMapa />
-		</MapContainer>
-	);
+      minZoom={-2}
+    >
+      <EventosMapa />
+    </MapContainer>
+  );
 }

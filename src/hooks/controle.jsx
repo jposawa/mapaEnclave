@@ -4,14 +4,13 @@
 
   No SWGalaxyMap cada lado do grid tem 1500 parsecs (pc) e cada lado mede 100 unidades do plano cartesiano dele.
 
-  Em meu mapa to pegando as coordenadas e dividindo por 16 o que coloca cada lado do "grid" como 6,25 pontos
+  Em meu mapa to pegando as coordenadas e dividindo por 14 o que coloca cada lado do "grid" como 6,25 pontos
 
   Portanto cada lado passa a medir 6,25 pontos e 1 ponto passa a ser 240pc
 
 */
 
 import React from 'react';
-import { useNavigate } from "react-router-dom";
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, onValue } from "firebase/database";
 
@@ -39,15 +38,14 @@ export const ControleProvider = ({children}) => {
   const [planetasGeoJson, setPlanetasGeoJson] = React.useState();
   const [camadaPlanetas, setCamadaPlanetas] = React.useState();
   const velocidadePadrao = 12.22375; //Isso seria quantos parsecs por hora em um hyperdrive class 1
-  const parsecPonto = 21;
+  const margemMapa = 1; //Essa margem é calculada para compensar a mudança de escala
+  const parsecPonto = 1.5 * margemMapa;
   const [mostraAstrogacao, setMostraAstrogacao] = React.useState(false);
   const [mostraBusca, setMostraBusca] = React.useState(false);
   const [navPlanetas, setNavPlanetas] = React.useState([]);
   const [classeMotor, setClasseMotor] = React.useState(1);
   const [planetaBuscado, setPlanetaBuscado] = React.useState();
   const [planetasRota, setPlanetasRota] = React.useState([]);
-
-  const pegaDadosLS = (tabela) => {}
 
   const pegarDados = (tabela) => {
     const caminho = tabela ? `${CONFIG.BASE_FB}/${tabela}` : CONFIG.BASE_FB;
@@ -77,7 +75,8 @@ export const ControleProvider = ({children}) => {
   }
 
   const ajustaPlanetas = (objBruto) => {
-    const offset = 15 * 14;
+    //Isso é feito porque os dados que obtive na Internet são 15x os valores que estou usando como referência pros cálculos. Portanto faço isso pra ajustar
+    const offset = 15 * margemMapa;
     const planetasAjustados = objBruto.map((p) => ({...p, X: p.X/offset, Y: p.Y/offset}));
 
     setPlanetas(planetasAjustados);
@@ -160,6 +159,8 @@ export const ControleProvider = ({children}) => {
     setNavPlanetas,
     mostraAstrogacao,
     setMostraAstrogacao,
+    velocidadePadrao,
+    parsecPonto,
     mostraBusca,
     setMostraBusca,
     buscaPlaneta,
