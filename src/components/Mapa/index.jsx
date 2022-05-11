@@ -85,7 +85,7 @@ const EventosMapa = props => {
   };
 
   const gerenciaTooltip = () => {
-    const planetas = Object.values(camadaPlanetasLocal ?._layers);
+    const planetas = Object.values(camadaPlanetasLocal?._layers);
     const bordasMapa = mapa.getBounds();
 
     planetas.forEach(p => {
@@ -115,8 +115,8 @@ const EventosMapa = props => {
         const _camadaPlanetas = L.geoJson(planetasGeoJson, {
           pointToLayer: (p, latlng) => {
 
-            if (!mapa.getPane(p ?.properties ?.Region.replace(" ", ""))) {
-              mapa.createPane(p ?.properties ?.Region.replace(" ", ""));
+            if (!mapa.getPane(p?.properties?.Region.replace(" ", ""))) {
+              mapa.createPane(p?.properties?.Region.replace(" ", ""));
             }
 
             const marcador = L.circleMarker(latlng, {
@@ -127,9 +127,9 @@ const EventosMapa = props => {
               fillColor: '#369',
               name: p.properties.Name,
               id: p.id,
-              regiao: p ?.properties ?.Region,
+              regiao: p?.properties?.Region,
               className: `planeta#${p.id} ${styles.marcadorPlaneta}`,
-              pane: p.properties ?.Region.replace(" ", ""),
+              pane: p.properties?.Region.replace(" ", ""),
             }).on('contextmenu', (m) => {
               const marcDOM = document.getElementsByClassName(`planeta#${m.target.options.id}`);
               removerDuplicidadeDOM(marcDOM);
@@ -140,11 +140,11 @@ const EventosMapa = props => {
             });
             marcador.bindPopup(
               p.properties.Name
-                ? `<div><a href="${p.properties.Link}" target="blank">${
+                ? `<div class=${styles.popupPlaneta}><h1><a href="${p.properties.Link}" target="blank">${
                 p.properties.Name
-                }</a><p>X:${p.properties.X.toFixed(
+                }</a></h1><h2>${p.properties.Region}</h2><h3>${p.properties.Sector}</h3><p>X: ${p.properties.X.toFixed(
                   2
-                )}, Y:${p.properties.Y.toFixed(2)}</p></div>`
+                )}, Y: ${p.properties.Y.toFixed(2)}</p></div>`
                 : 'Sistema desconhecido'
             );
 
@@ -227,8 +227,12 @@ const EventosMapa = props => {
     moveend: () => {
       if (moveBusca) {
         setMoveBusca(false);
-        setPlanetaBuscado();
-        mapa.setZoom(7, { animate: true, duration: duracaoMovimentoAutomatico });
+        mapa.setZoom(3, { animate: true, duration: duracaoMovimentoAutomatico });
+
+        setTimeout(() => {
+          planetaBuscado.openPopup();
+          setPlanetaBuscado();
+        }, (duracaoMovimentoAutomatico * 400))
       }
     },
     loaded: () => { console.log("loaded") },
