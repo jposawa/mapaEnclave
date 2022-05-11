@@ -5,15 +5,15 @@ import {Botao} from "../";
 import styles from "./styles.module.css";
 
 export default function Astrogador(props) {
-  const {setMostraModal, planetas, setPlanetasRota, pegaPlanetaMapa} = useControle();
+  const {planetas, setPlanetasRota, pegaPlanetaMapa, velocidadePadrao, parsecPonto} = useControle();
   const refOrigem = React.useRef();
   const refDestino = React.useRef();
   const refPropulsor = React.useRef();
   const [distancia, setDistancia] = React.useState();
   const [tempo, setTempo] = React.useState();
   const [horasTotais, setHorasTotais] = React.useState();
-  const velocidadePadrao = 12.22375; //Isso seria quantos parsecs por hora em um hyperdrive class 1
-  const parsecPonto = 21;
+  // const velocidadePadrao = 12.22375; //Isso seria quantos parsecs por hora em um hyperdrive class 1
+  // const parsecPonto = 21;
 
   const formataTempo = (tempoBruto) => {
     const horasTotais = Math.floor(tempoBruto);
