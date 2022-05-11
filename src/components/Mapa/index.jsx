@@ -14,16 +14,8 @@ import React from 'react';
 import 'leaflet/dist/leaflet.css';
 import {
   MapContainer,
-  TileLayer,
   useMap,
-  Marker,
-  Popup,
-  GeoJSON,
-  FeatureGroup,
-  CircleMarker,
-  Tooltip,
   useMapEvents,
-  Polyline,
 } from 'react-leaflet';
 import { CRS } from "leaflet";
 import { useControle } from '../../hooks';

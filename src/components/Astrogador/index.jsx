@@ -21,8 +21,8 @@ export default function Astrogador(props) {
     let horas = horasTotais % 24;
     let minutos = Math.floor((tempoBruto - horasTotais) * 60);
 
-    horas = horas > 10 ? horas : `0${horas}`;
-    minutos = minutos > 10 ? minutos : `0${minutos}`;
+    horas = horas >= 10 ? horas : `0${horas}`;
+    minutos = minutos >= 10 ? minutos : `0${minutos}`;
 
     setTempo(`${dias}d ${horas}:${minutos}`);
     setHorasTotais(tempoBruto.toFixed(2));
