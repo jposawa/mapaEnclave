@@ -37,8 +37,8 @@ export const ControleProvider = ({children}) => {
   const [planetas, setPlanetas] = React.useState();
   const [planetasGeoJson, setPlanetasGeoJson] = React.useState();
   const [camadaPlanetas, setCamadaPlanetas] = React.useState();
-  const [velocidadePadrao] = React.useState(42); //Isso seria quantos parsecs por hora em um hyperdrive class 1
-  const margemMapa = 0.5; //Essa margem é calculada para compensar a mudança de escala
+  const [velocidadePadrao, setVelocidadePadrao] = React.useState(42); //Isso seria quantos parsecs por hora em um hyperdrive class 1
+  const [margemMapa, setMargemMapa] = React.useState(0.5); //Essa margem é calculada para compensar a mudança de escala
   const parsecPonto = 1.5 * margemMapa;
   const [mostraAstrogacao, setMostraAstrogacao] = React.useState(false);
   const [mostraBusca, setMostraBusca] = React.useState(false);
@@ -83,8 +83,19 @@ export const ControleProvider = ({children}) => {
     formataPlanetas(planetasAjustados);
   }
 
+  const pegarConfig = () => {
+    const refConfig = pegarDados("config");
+
+    onValue(refConfig, (recorte) => {
+      const config = recorte.val();
+      
+      setVelocidadePadrao(config.velocidadePadrao);
+      setMargemMapa(config.margemMapa);
+    });
+  }
+
   const pegarPlanetas = () => {
-    const refMapa = pegarDados();
+    const refMapa = pegarDados("planetas");
 
     onValue(refMapa, (recorte) => {
       // setPlanetas(recorte.val());
@@ -143,7 +154,9 @@ export const ControleProvider = ({children}) => {
 
   React.useEffect(()=>{
     setFbApp(initializeApp(CONFIG.FB_CONFIG));
+
     pegarPlanetas();
+    pegarConfig();
   },[]);
 
   const valoresExportados = {
