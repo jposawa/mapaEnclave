@@ -23,7 +23,6 @@ import { useControle } from '../../hooks';
 import styles from './styles.module.css';
 
 const EventosMapa = props => {
-  // const {camadaPlanetas} = props;
   const [moveBusca, setMoveBusca] = React.useState(false);
   const mapa = useMap();
   const {
